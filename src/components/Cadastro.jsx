@@ -12,7 +12,7 @@ const Cadastro = () =>{
            
           <p> 
             <label for="email_cad">Seu e-mail</label>
-            <input id="email_cad" name="email_cad" required="required" type="email" placeholder="contato@htmlecsspro.com"/> 
+            <input id="email_cad" name="email_cad" required="required" type="email" placeholder="professor@gmail.com"/> 
           </p>
            
           <p> 

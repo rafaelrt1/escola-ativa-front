@@ -3,16 +3,16 @@ const Login = () => {
     return (
         <section className='content'>
             <div id="login">
-                <form method="post" action="">
+                <form method="" action="http://localhost:3000/RegistroDisciplina">
                     <h1>Login</h1>
                     <p>
                         <label for="nome_login">Seu nome</label>
-                        <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex. contato@htmlecsspro.com" />
+                        <input id="nome_login" name="nome_login" type="text" placeholder="ex. professor@gmail.com" />
                     </p>
 
                     <p>
                         <label for="email_login">Seu e-mail</label>
-                        <input id="email_login" name="email_login" required="required" type="password" placeholder="ex. senha" />
+                        <input id="email_login" name="email_login" type="password" placeholder="ex. senha" />
                     </p>
 
                     <p>
@@ -21,7 +21,7 @@ const Login = () => {
                     </p>
 
                     <p>
-                        <input type="submit" value="Logar" />
+                       <input type="submit" value="Logar" />
                     </p>
 
                     <p class="link">
