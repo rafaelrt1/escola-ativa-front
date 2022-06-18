@@ -1,27 +1,27 @@
+import { useState } from "react";
 
 const Login = () => {
+
+    const[email,setEmail] = useState(''); 
+    const[senha,setSenha] = useState('');
+
     return (
         <section className='content'>
             <div id="login">
-                <form method="post" action="">
+                <form method="" action="http://localhost:3000/RegistroDisciplina">
                     <h1>Login</h1>
                     <p>
-                        <label for="nome_login">Seu nome</label>
-                        <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex. contato@htmlecsspro.com" />
+                        <label for="nome_login">Seu Email</label>
+                        <input value={email} onChange={(e)=>setEmail(e.target.value)} id="nome_login" name="nome_login"  type="email" placeholder="ex. professor@gmail.com" />
                     </p>
 
                     <p>
-                        <label for="email_login">Seu e-mail</label>
-                        <input id="email_login" name="email_login" required="required" type="password" placeholder="ex. senha" />
+                        <label for="email_login">Sua Senha</label>
+                        <input value={senha} onChange={(e)=>setSenha(e.target.value)} id="email_login" name="email_login" type="password" placeholder="ex. senha" />
                     </p>
 
                     <p>
-                        <input type="checkbox" name="manterlogado" id="manterlogado" value="" />
-                        <label for="manterlogado">Manter-me logado</label>
-                    </p>
-
-                    <p>
-                        <input type="submit" value="Logar" />
+                       <input type="submit" value="Logar" />
                     </p>
 
                     <p class="link">

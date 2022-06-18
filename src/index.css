@@ -99,8 +99,14 @@ input[type="submit"]{
   text-shadow: 0 1px 1px #333;
   -webkit-border-radius: 5px;
   border-radius: 5px;
- 
   transition: all 0.2s linear;
+}
+
+.labelSelect{
+    margin-top: 4px;
+    border-radius: 3px;
+    box-shadow: 0px 1px 4px 0px rgb(168 168 168 / 60%) inset;
+    transition: all 0.2s linear;
 }
 
 /*estilo do botão submit no hover */
@@ -113,13 +119,12 @@ input[type="submit"]:hover{
   background: #e1eaeb;
   color: #7f7c7c;
   left: 0px;
-  height: 20px;
+  min-height: 20px;
   width: 440px;
   padding: 17px 30px 20px 30px;
   font-size: 16px;
   text-align: right;
   border-top: 1px solid #dbe5e8;
- 
   -webkit-border-radius: 0 0  5px 5px;
   border-radius: 0 0  5px 5px;
 }
@@ -131,10 +136,8 @@ input[type="submit"]:hover{
   color: rgb(29, 162, 193);
   margin-left: 10px;
   border: 1px solid #cbd518;
- 
   -webkit-border-radius: 4px;
   border-radius: 4px;  
- 
   -webkit-transition: all 0.4s linear;
   transition: all 0.4s  linear;
 }
