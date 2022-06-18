@@ -1,39 +1,21 @@
-import Select from 'react-select'
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 
-const optionsTurma = [
-    { value: 'Turma1', label: 'Turma 1' },
-    { value: 'Turma2', label: 'Turma 2' },
-    { value: 'Turma3', label: 'Turma 3' },
-    { value: 'Turma4', label: 'Turma 4' },
-    { value: 'Turma5', label: 'Turma 5' },
-    { value: 'Turma6', label: 'Turma 6' },
-    { value: 'Turma7', label: 'Turma 7' }
-]
-
-const CadastroAluno = () => {
+const Turmas = () => {
     return (
         <>
             <Navegacao />
             <section className='content'>
-
                 <div id="cadastro">
-                    <form method="post" action="">
-                        <h1>Cadastro de Aluno</h1>
+                    <form method="" action="">
+                        <h1>Registro de Turmas</h1>
 
                         <p>
-                            <label for="nome_cad">Nome Completo</label>
-                            <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="Digite o nome completo" />
+                            <label for="turma">Turma</label>
+                            <input name="turma" type="text" placeholder="Digite a nova turma" />
                         </p>
-
                         <p>
-                            <label for="select_cad">Turma</label>
-                            <Select className='labelSelect' options={optionsTurma} />
-                        </p>
-
-                        <p>
-                            <input type="submit" value="Cadastrar" />
+                            <input type="submit" value="Salvar" />
                         </p>
 
                         <section>
@@ -73,7 +55,7 @@ const CadastroAluno = () => {
                         </section>
 
                         <p class="link">
-                            Ja cadastrou todos?
+                            Ja registrou todos? Va para os alunos agora!
                             <a href="http://localhost:3000/Tabela">Alunos</a>
                         </p>
                     </form>
@@ -83,4 +65,4 @@ const CadastroAluno = () => {
     )
 }
 
-export default CadastroAluno;
+export default Turmas;

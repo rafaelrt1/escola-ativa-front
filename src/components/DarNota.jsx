@@ -50,18 +50,18 @@ const DarNota = () => {
                     </p>
 
                     <p>
-                        <label for="select_cad">Conteudo</label>
+                        <label for="select_cad">Conteúdo</label>
                         <Select className='labelSelect' options={optionsConteudo} />
                     </p>
 
                     <p>
                         <label for="fase">Fase</label>
-                        <input name="fase" type="text" placeholder="fase" />
+                        <input name="fase" type="text" placeholder="Digite a fase" />
                     </p>
 
                     <p>
                         <label for="nota">Nota</label>
-                        <input name="nota" type="number" placeholder="nota" />
+                        <input name="nota" type="number" placeholder="Digite a nota" />
                     </p>
 
                     <p>

@@ -7,12 +7,7 @@ const Cadastro = () => {
 
           <p>
             <label for="nome_cad">Seu nome</label>
-            <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="nome" />
-          </p>
-
-          <p>
-            <label for="email_cad">Seu e-mail</label>
-            <input id="email_cad" name="email_cad" required="required" type="email" placeholder="professor@gmail.com" />
+            <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="Seu usuário" />
           </p>
 
           <p>

@@ -30,7 +30,7 @@ const VincularTurmaDisciplina = () => {
 
                 <div id="cadastro">
                     <form method="post" action="">
-                        <h1>Vincular Turma e Disciplina</h1>
+                        <h1>Vincular Turma a Disciplina</h1>
 
                         <p>
                             <label for="select_cad">Turma</label>

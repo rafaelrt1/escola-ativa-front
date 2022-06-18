@@ -28,7 +28,7 @@ const Tabela = () => {
         <>
             <Navegacao />
             <Container>
-                <section>
+                <section >
                     <p>
                         <label for="select_cad">Turma</label>
                         <Select className='labelSelect' options={optionsTurma} />
@@ -49,6 +49,7 @@ const Tabela = () => {
                                 <th>Nota 3</th>
                                 <th>Nota 4</th>
                                 <th>Total</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +60,10 @@ const Tabela = () => {
                                 <td>2</td>
                                 <td>2</td>
                                 <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Julia</td>
@@ -67,6 +72,10 @@ const Tabela = () => {
                                 <td>2</td>
                                 <td>2</td>
                                 <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Aline</td>
@@ -75,6 +84,10 @@ const Tabela = () => {
                                 <td>2</td>
                                 <td>2</td>
                                 <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gustavo</td>
@@ -83,6 +96,10 @@ const Tabela = () => {
                                 <td>2</td>
                                 <td>2</td>
                                 <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Samael</td>
@@ -91,6 +108,10 @@ const Tabela = () => {
                                 <td>2</td>
                                 <td>2</td>
                                 <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -101,6 +122,7 @@ const Tabela = () => {
                                 <td>Execução</td>
                                 <td>Trabalho final</td>
                                 <td></td>
+
                             </tr>
                         </tfoot>
                     </Table>
