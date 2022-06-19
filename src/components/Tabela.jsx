@@ -30,35 +30,33 @@ const Tabela = () => {
             <Container>
                 <section >
                     <p>
+                        <label for="select_cad">Disciplina</label>
+                        <Select className='labelSelect' options={optionsDisciplina} />
+                    </p>
+
+                    <p>
                         <label for="select_cad">Turma</label>
                         <Select className='labelSelect' options={optionsTurma} />
                     </p>
 
-                    <p>
-                        <label for="select_cad">Disciplina</label>
-                        <Select className='labelSelect' options={optionsDisciplina} />
-                    </p>
+
                 </section>
                 <section>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Nota 1</th>
-                                <th>Nota 2</th>
-                                <th>Nota 3</th>
-                                <th>Nota 4</th>
-                                <th>Total</th>
+                                <th>Conteúdo</th>
+                                <th>Fase</th>
+                                <th>Nota</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Rafael</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
+                                <td>teste</td>
+                                <td>1</td>
                                 <td>8</td>
                                 <td>
                                     <a href="#"><img src='../remover.png' /></a>
@@ -66,65 +64,62 @@ const Tabela = () => {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Julia</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>
-                                    <a href="#"><img src='../remover.png' /></a>
-                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Aline</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>
-                                    <a href="#"><img src='../remover.png' /></a>
-                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Gustavo</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>
-                                    <a href="#"><img src='../remover.png' /></a>
-                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Samael</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>
-                                    <a href="#"><img src='../remover.png' /></a>
-                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>Conteudo:</td>
-                                <td>Iniciação</td>
-                                <td>Planejamento</td>
-                                <td>Execução</td>
-                                <td>Trabalho final</td>
                                 <td></td>
-
+                                <td>fgadfg</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
                             </tr>
-                        </tfoot>
+                            <tr>
+                                <td></td>
+                                <td>xxxx</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
+                            </tr>
+                            <tr style={{ backgroundColor: "lightblue" }}>
+                                <td><b>TOTAL:</b></td>
+                                <td></td>
+                                <td></td>
+                                <td>24</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>ANA</td>
+                                <td>aaaaa</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>teste</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>
+                                    <a href="#"><img src='../remover.png' /></a>
+                                    <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a>
+                                </td>
+                            </tr>
+                            <tr style={{ backgroundColor: "lightblue" }}>
+                                <td><b>TOTAL:</b></td>
+                                <td></td>
+                                <td></td>
+                                <td>16</td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+
                     </Table>
                 </section>
             </Container>
