@@ -8,7 +8,7 @@ const Login = () => {
     return (
         <section className='content'>
             <div id="login">
-                <form method="" action="http://localhost:3000/RegistroDisciplina">
+                <form method="" action="http://localhost:3000/Disciplinas">
                     <h1>Login</h1>
                     <p>
                         <label for="nome_login">Seu Email</label>
