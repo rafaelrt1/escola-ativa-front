@@ -21,7 +21,8 @@ const CadastroAluno = () => {
                 result.forEach(function(turma) {
                     turmas.push({ value: turma.id, label: turma.nome})
                 });
-                setOptionsTurma(turmas)
+                setOptionsTurma(turmas);
+                console.log(turmas);
             },(error) => {
                 console.error(error)
             });

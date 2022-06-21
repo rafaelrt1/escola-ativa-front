@@ -16,6 +16,7 @@ const Disciplinas = () => {
             ).then(res => res.json())
             .then((result) => {
                 setDisciplinas(result)
+                console.log(disciplinas)
             },(error) => {
                 console.error(error)
             });
@@ -160,7 +161,7 @@ const Disciplinas = () => {
                                             <td>{disciplina.id}</td>
                                             <td className='nome' id={disciplina.id}>{disciplina.nome}</td>
                                             <td key={disciplina.id}>
-                                                <a href="#" onClick={apagarDisciplina} id={disciplina.id}><img src='../remover.png' id={disciplina.id} /></a>
+                                                <a href="#" onClick={apagarDisciplina} id={disciplina.id}><img alt='iconTrash' src='../remover.png' id={disciplina.id} /></a>
                                             </td>
                                         </tr>
                                         )
