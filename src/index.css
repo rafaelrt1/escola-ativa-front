@@ -248,3 +248,44 @@ input[type="submit"]:hover{
   border:0;
   background-color:rgb(255,253,210);
 }
+
+.feedback-message {
+  display: flex;
+  justify-content: center;
+}
+
+.feedback-message .feedback{
+  position: fixed;
+  z-index: 10;
+  background: #fbfb44;
+  display: flex;
+  border-radius: 10px;
+  padding: 10px 20px;
+  flex-direction: column;
+}
+
+.feedback-message .feedback .text{
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.feedback-message .feedback .buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.feedback-message .feedback .button{
+  width: 15%;
+  border: none;
+  border-radius: 5px;
+  margin: 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.feedback-message .feedback .button:hover{
+  background-color: #bebcbc;
+  color: #ffffff;
+}

@@ -1,11 +1,13 @@
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import $ from 'jquery';
+import $, { event } from 'jquery';
 
 const Turmas = () => {
     const [turmas, setTurmas] = useState();
     const [newTurma, setNewTurma] = useState();
+    const [visible, setVisible] = useState(false);
+    const [selectedTurma, setSelectedTurma] = useState(false);
 
     const getTurmas = () => {
         try {
@@ -37,7 +39,6 @@ const Turmas = () => {
                 body: JSON.stringify({"turma": newTurma}
             )}).then(res => res.json())
             .then((result) => {
-                    console.log(result);
                     getTurmas();
                 },(error) => {
                     console.error(error)
@@ -48,29 +49,26 @@ const Turmas = () => {
         }
     }
 
-    const apagarTurma = (event) => {
-        event.preventDefault();
-        let id = parseInt(event.target.id);
-        try {
-            fetch('http://localhost:5000/turma', {
-                method:'DELETE', 
-                mode:"cors",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json;charset=UTF-8'
-                },
-                body: JSON.stringify({"turma": id}
-            )}).then(res => res.json())
-            .then((result) => {
-                    console.log(result);
-                    getTurmas();
-                },(error) => {
-                    console.error(error)
-                }
-            );
-        } catch(e) {
-              console.error(e)  
-        }
+    const apagarTurma = () => {
+        console.log(selectedTurma);
+        // try {
+        //     fetch('http://localhost:5000/turma', {
+        //         method:'DELETE', 
+        //         mode:"cors",
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json;charset=UTF-8'
+        //         },
+        //         body: JSON.stringify({"turma": id}
+        //     )}).then(res => res.json())
+        //     .then((result) => {
+        //         getTurmas();
+        //     },(error) => {
+        //         console.error(error)
+        //     });
+        // } catch(e) {
+        //     console.error(e)  
+        // }
     }
 
     const editarTurma = (id, novoNome) => {
@@ -126,9 +124,35 @@ const Turmas = () => {
         });
     });
 
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <p className="text">Esta ação também irá remover tudo que é vinculado a esta turma. Deseja realmente prosseguir?</p>
+                 <div className="buttons">
+                     <button className="button" onClick={() => {apagarTurma()}}>Sim</button>
+                     <button className="button" onClick={() => {setVisible(false)}}>Não</button>
+                 </div>
+             </div>
+        );
+    }
+
+    const handleClick = (e) => {
+        setSelectedTurma(parseInt(e.target.id));
+        setVisible(true);
+    }
+
     return (
         <>
             <Navegacao />
+            <Parent>{visible ? <Child /> : null}</Parent>
             <section className='content'>
                 <div id="cadastro">
                     <form onSubmit={enviarTurma}>
@@ -159,7 +183,7 @@ const Turmas = () => {
                                             <td>{turma.id}</td>
                                             <td className='nome' id={turma.id}>{turma.nome}</td>
                                             <td key={turma.id}>
-                                                <a href="#" onClick={apagarTurma} id={turma.id}><img src='../remover.png' id={turma.id} /></a>
+                                                <a href="#" onClick={(e) => handleClick(e)} id={turma.id}><img src='../remover.png' id={turma.id} /></a>
                                             </td>
                                         </tr>
                                         )

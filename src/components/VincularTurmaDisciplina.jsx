@@ -7,6 +7,7 @@ const VincularTurmaDisciplina = () => {
     const [optionsDisciplina, setOptionsDisciplina ]= useState([]);
     const [selectedTurma, setSelectedTurma] = useState([]);
     const [selectedDisciplina, setSelectedDisciplina ]= useState([]);
+    const [visible, setVisible] = useState(false);
 
     const getTurmas = () => {
         try {
@@ -33,11 +34,9 @@ const VincularTurmaDisciplina = () => {
         return (
             <div>
                 {(result.status) ?
+                    setVisible(true)
+                :   
                     <div> 
-                        <span>{result.status}</span>
-                        <img></img>
-                    </div>
-                :   <div> 
                         <span>Concluído com sucesso</span>
                         <img></img>
                     </div>
@@ -83,8 +82,9 @@ const VincularTurmaDisciplina = () => {
             }
             ).then(res => res.json())
             .then((result) => {
-                if(result)
+                if(result) {
                     showSuccessMessage(result);
+                }
             },(error) => {
                 console.error(error)
             });
@@ -100,6 +100,25 @@ const VincularTurmaDisciplina = () => {
             setSelectedDisciplina(e.value);      
     }
 
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <p className="text">Turma e disciplina já vinculadas</p>
+                 <div className="buttons">
+                     <button className="button" onClick={() => {setVisible(false)}}>Entendi</button>
+                 </div>
+             </div>
+        );
+    }
+
     useEffect(() => {
         getTurmas();
         getDisciplinas();
@@ -108,6 +127,7 @@ const VincularTurmaDisciplina = () => {
     return (
         <>
             <Navegacao />
+            <Parent>{visible ? <Child /> : null}</Parent>
             <section className='content'>
 
                 <div id="cadastro">
