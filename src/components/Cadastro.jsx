@@ -7,12 +7,12 @@ const Cadastro = () => {
 
           <p>
             <label for="nome_cad">Seu nome</label>
-            <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="Seu usuário" />
+            <input id="nome_cad" name="nome_cad" required type="text" placeholder="Seu usuário" />
           </p>
 
           <p>
             <label for="senha_cad">Sua senha</label>
-            <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="ex. 1234" />
+            <input id="senha_cad" name="senha_cad" required type="password" placeholder="ex. 1234" />
           </p>
 
           <p>

@@ -196,7 +196,7 @@ const CadastroAluno = () => {
 
                         <div>
                             <label htmlFor="nome_cad">Nome Completo</label>
-                            <input id="nome_cad" onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required="required" type="text" placeholder="Digite o nome completo" />
+                            <input id="nome_cad" onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required type="text" placeholder="Digite o nome completo" />
                         </div>
 
                         <div>

@@ -12,7 +12,7 @@ const Conteudos = () => {
 
                         <p>
                             <label for="turma">Turma</label>
-                            <input name="turma" type="text" placeholder="Digite o novo conteúdo" />
+                            <input name="turma" type="text" required placeholder="Digite o novo conteúdo" />
                         </p>
 
                         <p>

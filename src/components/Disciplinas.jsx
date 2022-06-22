@@ -137,7 +137,7 @@ const Disciplinas = () => {
 
                         <p>
                             <label htmlFor="disciplina">Disciplina</label>
-                            <input onChange={(e)=>{setNewDisciplina(e.target.value)}} name="disciplina" type="text" placeholder="Digite a nova disciplina" />
+                            <input onChange={(e)=>{setNewDisciplina(e.target.value)}} name="disciplina" type="text" placeholder="Digite a nova disciplina" required />
                         </p>
 
                         <p>

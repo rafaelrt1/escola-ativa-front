@@ -56,12 +56,12 @@ const DarNota = () => {
 
                     <p>
                         <label for="fase">Fase</label>
-                        <input name="fase" type="text" placeholder="Digite a fase" />
+                        <input name="fase" type="text" required placeholder="Digite a fase" />
                     </p>
 
                     <p>
                         <label for="nota">Nota</label>
-                        <input name="nota" type="number" placeholder="Digite a nota" />
+                        <input name="nota" type="number" required placeholder="Digite a nota" />
                     </p>
 
                     <p>

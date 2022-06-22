@@ -12,12 +12,12 @@ const Login = () => {
                     <h1>Login</h1>
                     <p>
                         <label for="nome_login">Seu Email</label>
-                        <input value={email} onChange={(e)=>setEmail(e.target.value)} id="nome_login" name="nome_login"  type="email" placeholder="ex. professor@gmail.com" />
+                        <input value={email} onChange={(e)=>setEmail(e.target.value)} id="nome_login" name="nome_login"  type="email" placeholder="ex. professor@gmail.com" required/>
                     </p>
 
                     <p>
                         <label for="email_login">Sua Senha</label>
-                        <input value={senha} onChange={(e)=>setSenha(e.target.value)} id="email_login" name="email_login" type="password" placeholder="ex. senha" />
+                        <input value={senha} onChange={(e)=>setSenha(e.target.value)} id="email_login" name="email_login" type="password" placeholder="ex. senha" required/>
                     </p>
 
                     <p>

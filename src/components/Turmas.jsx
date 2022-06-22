@@ -160,7 +160,7 @@ const Turmas = () => {
 
                         <p>
                             <label htmlFor="turma">Turma</label>
-                            <input onChange={(e)=>{setNewTurma(e.target.value)}} name="turma" type="text" placeholder="Digite a nova turma" />
+                            <input onChange={(e)=>{setNewTurma(e.target.value)}} name="turma" type="text" placeholder="Digite a nova turma" required/>
                         </p>
                         <p>
                             <input type="submit" value="Salvar" />
