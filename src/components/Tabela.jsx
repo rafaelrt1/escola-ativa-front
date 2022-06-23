@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
-import Select from 'react-select'
+import BaseSelect from 'react-select'
 import Navegacao from './Navegacao'
+import RequiredSelect from "./RequiredSelect"
 
 const Tabela = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
@@ -11,6 +12,22 @@ const Tabela = () => {
     const [selectedDisciplina, setSelectedDisciplina] = useState([]);
     const [dadosTabela, setDadosTabela] = useState([]);
     const [notasFinais, setNotasFinais] = useState([]);
+
+    const SelectD = props => (
+        <RequiredSelect
+          {...props}
+          SelectComponent={BaseSelect}
+          options={optionsDisciplina}
+        />
+      );
+    
+      const SelectT = props => (
+        <RequiredSelect
+          {...props}
+          SelectComponent={BaseSelect}
+          options={optionsTurma}
+        />
+      );
 
     const getDisciplinas = () => {
         try {
@@ -166,12 +183,12 @@ const Tabela = () => {
                 <section >
                     <p>
                         <label for="select_cad">Disciplina</label>
-                        <Select className='labelSelect' options={optionsDisciplina} onChange={handleChange.bind("disciplina", "disciplina")} />
+                        <SelectD className='labelSelect'  onChange={handleChange.bind("disciplina", "disciplina")} required/>
                     </p>
 
                     <p>
                         <label for="select_cad">Turma</label>
-                        <Select className='labelSelect' options={optionsTurma} onChange={handleChange.bind("turma", "turma")} />
+                        <SelectT className='labelSelect' onChange={handleChange.bind("turma", "turma")} required/>
                     </p>
 
 

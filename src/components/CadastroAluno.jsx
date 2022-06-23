@@ -1,14 +1,23 @@
-import Select from 'react-select'
+import BaseSelect from 'react-select'
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react';
 import $ from 'jquery';
+import RequiredSelect from "./RequiredSelect";
 
 const CadastroAluno = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
     const [alunos, setAlunos] = useState();
     const [newAluno, setNewAluno] = useState();
     const [selectedTurma, setSelectedTurma] = useState([]);
+
+    const Select = props => (
+        <RequiredSelect
+          {...props}
+          SelectComponent={BaseSelect}
+          options={optionsTurma}
+        />
+      );
 
     const getTurmas = () => {
         try {
@@ -201,7 +210,7 @@ const CadastroAluno = () => {
 
                         <div>
                             <label htmlFor="select_cad">Turma</label>
-                            <Select className='labelSelect' options={optionsTurma} onChange={handleChange}/>
+                            <Select className='labelSelect' options={optionsTurma} onChange={handleChange} required/>
                         </div>
 
                         <div>

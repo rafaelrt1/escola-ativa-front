@@ -1,6 +1,7 @@
 import Navegacao from './Navegacao'
-import Select from 'react-select'
+import BaseSelect from 'react-select'
 import { useState, useEffect } from 'react'
+import RequiredSelect from "./RequiredSelect"
 
 const VincularTurmaDisciplina = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
@@ -8,6 +9,22 @@ const VincularTurmaDisciplina = () => {
     const [selectedTurma, setSelectedTurma] = useState([]);
     const [selectedDisciplina, setSelectedDisciplina ]= useState([]);
     const [visible, setVisible] = useState(false);
+
+    const SelectD = props => (
+        <RequiredSelect
+          {...props}
+          SelectComponent={BaseSelect}
+          options={optionsDisciplina}
+        />
+      );
+    
+      const SelectT = props => (
+        <RequiredSelect
+          {...props}
+          SelectComponent={BaseSelect}
+          options={optionsTurma}
+        />
+      );
 
     const getTurmas = () => {
         try {
@@ -136,12 +153,12 @@ const VincularTurmaDisciplina = () => {
 
                         <div>
                             <label htmlFor="select_cad">Turma</label>
-                            <Select className='labelSelect' options={optionsTurma} onChange={handleChange.bind("turma","turma")} />
+                            <SelectT className='labelSelect' onChange={handleChange.bind("turma","turma")} required/>
                         </div>
 
                         <div>
                             <label htmlFor="select_cad">Disciplina</label>
-                            <Select className='labelSelect' options={optionsDisciplina} onChange={handleChange.bind("disciplina","disciplina")} />
+                            <SelectD className='labelSelect' onChange={handleChange.bind("disciplina","disciplina")} required/>
                         </div>
 
                         <div>
