@@ -1,6 +1,7 @@
 import Navegacao from './Navegacao'
 import Select from 'react-select'
 import { useState, useEffect } from 'react'
+import Footer from './Footer';
 
 const VincularTurmaDisciplina = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
@@ -155,6 +156,7 @@ const VincularTurmaDisciplina = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

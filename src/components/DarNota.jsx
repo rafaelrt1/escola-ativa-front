@@ -1,5 +1,6 @@
 import Navegacao from './Navegacao'
 import Select from 'react-select'
+import Footer from './Footer'
 
 const optionsTurma = [
     { value: 'Turma1', label: 'Turma 1' },
@@ -28,53 +29,54 @@ const optionsConteudo = [
 const DarNota = () => {
     return (
         <>
-        <Navegacao/>
-        <section className='content'>
-            <div id="cadastro">
-                <form method="post" action="">
-                    <h1>Vincular Turma e Disciplina</h1>
+            <Navegacao/>
+            <section className='content'>
+                <div id="cadastro">
+                    <form method="post" action="">
+                        <h1>Vincular Turma e Disciplina</h1>
 
-                    <p>
-                        <label for="select_cad">Disciplina</label>
-                        <Select className='labelSelect' options={optionsDisciplina} />
-                    </p>
+                        <p>
+                            <label for="select_cad">Disciplina</label>
+                            <Select className='labelSelect' options={optionsDisciplina} />
+                        </p>
 
-                    <p>
-                        <label for="select_cad">Turma</label>
-                        <Select className='labelSelect' options={optionsTurma} />
-                    </p>
+                        <p>
+                            <label for="select_cad">Turma</label>
+                            <Select className='labelSelect' options={optionsTurma} />
+                        </p>
 
-                    <p>
-                        <label for="select_cad">Aluno</label>
-                        <Select className='labelSelect' options={optionsAluno} />
-                    </p>
+                        <p>
+                            <label for="select_cad">Aluno</label>
+                            <Select className='labelSelect' options={optionsAluno} />
+                        </p>
 
-                    <p>
-                        <label for="select_cad">Conteúdo</label>
-                        <Select className='labelSelect' options={optionsConteudo} />
-                    </p>
+                        <p>
+                            <label for="select_cad">Conteúdo</label>
+                            <Select className='labelSelect' options={optionsConteudo} />
+                        </p>
 
-                    <p>
-                        <label for="fase">Fase</label>
-                        <input name="fase" type="text" placeholder="Digite a fase" />
-                    </p>
+                        <p>
+                            <label for="fase">Fase</label>
+                            <input name="fase" type="text" placeholder="Digite a fase" />
+                        </p>
 
-                    <p>
-                        <label for="nota">Nota</label>
-                        <input name="nota" type="number" placeholder="Digite a nota" />
-                    </p>
+                        <p>
+                            <label for="nota">Nota</label>
+                            <input name="nota" type="number" placeholder="Digite a nota" />
+                        </p>
 
-                    <p>
-                        <input type="submit" value="Salvar" />
-                    </p>
+                        <p>
+                            <input type="submit" value="Salvar" />
+                        </p>
 
-                    <p class="link">
-                        Ja deu a nota a todos todos?
-                        <a href="http://localhost:3000/Tabela">Tabela</a>
-                    </p>
-                </form>
-            </div>
-        </section>
+                        <p class="link">
+                            Ja deu a nota a todos todos?
+                            <a href="http://localhost:3000/Tabela">Tabela</a>
+                        </p>
+                    </form>
+                </div>
+            </section>
+            <Footer></Footer>
         </>
     )
 }

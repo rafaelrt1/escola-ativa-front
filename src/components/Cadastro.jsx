@@ -1,5 +1,8 @@
+import Footer from "./Footer";
+
 const Cadastro = () => {
   return (
+    <>
     <section className='content'>
       <div id="cadastro">
         <form method="post" action="">
@@ -26,6 +29,8 @@ const Cadastro = () => {
         </form>
       </div>
     </section>
+    <Footer></Footer>
+    </>
   )
 }
 

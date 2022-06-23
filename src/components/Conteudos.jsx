@@ -1,5 +1,6 @@
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
+import Footer from './Footer';
 
 const Conteudos = () => {
     return (
@@ -61,6 +62,7 @@ const Conteudos = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

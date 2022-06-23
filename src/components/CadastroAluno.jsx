@@ -3,12 +3,18 @@ import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react';
 import $ from 'jquery';
+import Footer from './Footer';
 
 const CadastroAluno = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
     const [alunos, setAlunos] = useState();
     const [newAluno, setNewAluno] = useState();
-    const [selectedTurma, setSelectedTurma] = useState([]);
+    const [selectedTurma, setSelectedTurma] = useState();
+    const [selectedTurmaNome, setSelectedTurmaNome] = useState();
+
+    console.log(selectedTurmaNome)
+    console.log(selectedTurma)
+    console.log(newAluno)
 
     const getTurmas = () => {
         try {
@@ -23,7 +29,6 @@ const CadastroAluno = () => {
                     turmas.push({ value: turma.id, label: turma.nome})
                 });
                 setOptionsTurma(turmas);
-                console.log(turmas);
             },(error) => {
                 console.error(error)
             });
@@ -72,13 +77,8 @@ const CadastroAluno = () => {
         }
     }
 
-    const handleChange = (e) => {
-        setSelectedTurma(e.value);      
-    }
-
     const apagarAluno = (event) => {
         let id = parseInt(event.target.id);
-        console.log(id)
         try {
             fetch('http://localhost:5000/aluno', {
                 method:'DELETE', 
@@ -100,7 +100,6 @@ const CadastroAluno = () => {
     }
 
     const editarTurmaAluno = (id, novoNome) => {
-        console.log(id, novoNome)
         // try {
         //     fetch('http://localhost:5000/turma-aluno',{
         //         method:'PUT', 
@@ -122,7 +121,6 @@ const CadastroAluno = () => {
     }
 
     const editarAluno = (id, novoNome) => {
-        console.log(id, novoNome)
         // try {
         //     fetch('http://localhost:5000/turma',{
         //         method:'PUT', 
@@ -143,6 +141,17 @@ const CadastroAluno = () => {
         // }
     }
 
+    const setSelected = (e) => {
+        let id = parseInt(e.target.id);
+        let alunoSelected = alunos.filter(function(aluno) {
+            return aluno.idAluno === id;
+        });
+        console.log(alunoSelected);
+        setNewAluno(alunoSelected[0].nome);
+        setSelectedTurma(alunoSelected[0].idTurma);
+        setSelectedTurmaNome(alunoSelected[0].turma)
+    }
+
     useEffect(() => {
         getTurmas();
         getAlunos();
@@ -152,12 +161,10 @@ const CadastroAluno = () => {
         $("td.nome, td.turma").dblclick(function () {
             let conteudoOriginal = $(this).text();
             if(conteudoOriginal) {
-                console.log($(this).parent())
                 let type = ($(this).parent().prevObject[0].classList[0]);
                 let divOriginal = $(this);
                 if (type === "turma") {
                     let idAluno = $(this).parent().prevObject[0].attributes["data-aluno"].value;
-                    console.log(idAluno)
                 }
                 let id = $(this)[0].id;
             
@@ -196,12 +203,12 @@ const CadastroAluno = () => {
 
                         <div>
                             <label htmlFor="nome_cad">Nome Completo</label>
-                            <input id="nome_cad" onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required="required" type="text" placeholder="Digite o nome completo" />
+                            <input id="nome_cad" defaultValue={newAluno} onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required="required" type="text" placeholder="Digite o nome completo" />
                         </div>
 
                         <div>
                             <label htmlFor="select_cad">Turma</label>
-                            <Select className='labelSelect' options={optionsTurma} onChange={handleChange}/>
+                            <Select className='labelSelect' defaultValue={{label: selectedTurmaNome, value: selectedTurma}} options={optionsTurma} onChange={(e) => setSelectedTurma(e.value)}/>
                         </div>
 
                         <div>
@@ -215,7 +222,8 @@ const CadastroAluno = () => {
                                         <tr>
                                             <th>Código</th>
                                             <th>Nome</th>
-                                            <th>Ações</th>
+                                            <th>Turma</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -227,6 +235,7 @@ const CadastroAluno = () => {
                                             <td className='turma' id={aluno.idTurma} data-aluno={aluno.idAluno}>{aluno.turma}</td>
                                             <td key={aluno.id}>
                                                 <a href="#" onClick={apagarAluno} id={aluno.idAluno}><img src='../remover.png' id={aluno.idAluno} /></a>
+                                                <a href="#" onClick={(e) => setSelected(e)} id={aluno.idAluno}><img src='../editar.png' id={aluno.idAluno} /></a>
                                             </td>
                                         </tr>
                                         )
@@ -245,6 +254,7 @@ const CadastroAluno = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

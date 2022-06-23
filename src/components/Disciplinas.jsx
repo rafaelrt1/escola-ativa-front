@@ -2,10 +2,13 @@ import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
 import $ from 'jquery';
+import Footer from './Footer';
 
 const Disciplinas = () => {
     const [disciplinas, setDisciplinas] = useState();
     const [newDisciplina, setNewDisciplina] = useState();
+    const [visibleRegister, setVisibleRegister] = useState(true);
+    const [visibleUpdate, setVisibleUpdate] = useState(false);
 
     const getDisciplinas = () => {
         try {
@@ -95,6 +98,15 @@ const Disciplinas = () => {
         }
     }
 
+    const setSelected = (e) => {
+        let id = parseInt(e.target.id);
+        let selected = disciplinas.filter(function(disciplina) {
+            return disciplina.id === id;
+        });
+        console.log(selected);
+        setNewDisciplina(selected[0].nome);
+    }
+
     useEffect(() => {
         getDisciplinas();
     }, []);
@@ -132,17 +144,26 @@ const Disciplinas = () => {
             <Navegacao />
             <section className='content'>
                 <div id="cadastro">
-                    <form onSubmit={enviarDisciplina}>
+                    <form>
                         <h1>Registro de Disciplinas</h1>
 
                         <p>
                             <label htmlFor="disciplina">Disciplina</label>
-                            <input onChange={(e)=>{setNewDisciplina(e.target.value)}} name="disciplina" type="text" placeholder="Digite a nova disciplina" />
+                            <input value={newDisciplina} onChange={(e)=>{setNewDisciplina(e.target.value)}} name="disciplina" type="text" placeholder="Digite a nova disciplina" />
                         </p>
-
-                        <p>
-                            <input type="submit" value="Salvar" />
-                        </p>
+                        { visibleRegister ?
+                            <p  >
+                                <input onClick={enviarDisciplina} value="Salvar" />
+                            </p> :
+                            <div>
+                                <p  >
+                                    <input onClick={editarDisciplina(newDisciplina)} value="Alterar" />
+                                </p>
+                                <p  >
+                                    <input onClick={() => { setVisibleRegister(true) }} value="Cancelar" />
+                                </p>
+                            </div>
+                        }
 
                         { (disciplinas && disciplinas.length > 0) ?
                             <section>
@@ -162,6 +183,7 @@ const Disciplinas = () => {
                                             <td className='nome' id={disciplina.id}>{disciplina.nome}</td>
                                             <td key={disciplina.id}>
                                                 <a href="#" onClick={apagarDisciplina} id={disciplina.id}><img alt='iconTrash' src='../remover.png' id={disciplina.id} /></a>
+                                                <a href="#" onClick={(e)=>{setSelected(e); setVisibleRegister(false);}} id={disciplina.id}><img alt='iconTrash' src='../editar.png' id={disciplina.id} /></a>
                                             </td>
                                         </tr>
                                         )
@@ -180,6 +202,7 @@ const Disciplinas = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

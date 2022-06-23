@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import Select from 'react-select'
+import Footer from './Footer';
 import Navegacao from './Navegacao'
 
 const Tabela = () => {
@@ -253,8 +254,8 @@ const Tabela = () => {
                             <></>
                      
                      }
-               
             </Container>
+            <Footer></Footer>
         </>
     )
 }

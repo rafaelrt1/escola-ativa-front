@@ -2,6 +2,7 @@ import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
 import $, { event } from 'jquery';
+import Footer from './Footer';
 
 const Turmas = () => {
     const [turmas, setTurmas] = useState();
@@ -135,7 +136,7 @@ const Turmas = () => {
     const Child = () => {
         return (
             <div className="feedback">
-                 <p className="text">Esta ação também irá remover tudo que é vinculado a esta turma. Deseja realmente prosseguir?</p>
+                 <p className="text">Deseja realmente prosseguir? Esta ação não irá remover os registros vinculados a esta turma</p>
                  <div className="buttons">
                      <button className="button" onClick={() => {apagarTurma()}}>Sim</button>
                      <button className="button" onClick={() => {setVisible(false)}}>Não</button>
@@ -202,6 +203,7 @@ const Turmas = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }
