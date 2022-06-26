@@ -1,25 +1,29 @@
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import $ from 'jquery';
 import Footer from './Footer';
 
 const Disciplinas = () => {
     const [disciplinas, setDisciplinas] = useState();
-    const [newDisciplina, setNewDisciplina] = useState();
+    const [newDisciplina, setNewDisciplina] = useState('');
+    const [newDisciplinaId, setNewDisciplinaId] = useState();
     const [visibleRegister, setVisibleRegister] = useState(true);
-    const [visibleUpdate, setVisibleUpdate] = useState(false);
+    const [feedback, setFeedback] = useState();
+    const [visibleFeedback, setVisibleFeedback] = useState(false);
 
     const getDisciplinas = () => {
         try {
             fetch('http://localhost:5000/disciplinas', {
                 method:'GET', 
-                mode:"cors"
+                mode:"cors",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
             }
             ).then(res => res.json())
             .then((result) => {
                 setDisciplinas(result)
-                console.log(disciplinas)
             },(error) => {
                 console.error(error)
             });
@@ -41,7 +45,6 @@ const Disciplinas = () => {
                 body: JSON.stringify({"disciplina": newDisciplina}
             )}).then(res => res.json())
             .then((result) => {
-                    console.log(result);
                     getDisciplinas();
                 },(error) => {
                     console.error(error)
@@ -66,8 +69,21 @@ const Disciplinas = () => {
                 body: JSON.stringify({"disciplina": id}
             )}).then(res => res.json())
             .then((result) => {
-                    console.log(result);
+                if(result.error) {
+                    setFeedback('Esta disciplina não pode ser excluída porque existem registros relacionados a ela');
+                    setVisibleFeedback(true);
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
+                else if (result.success) {
+                    setFeedback('Disciplina excluída');
+                    setVisibleFeedback(true);
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
                     getDisciplinas();
+                }
                 },(error) => {
                     console.error(error)
                 }
@@ -77,7 +93,8 @@ const Disciplinas = () => {
         }
     }
 
-    const editarDisciplina = (id, novoNome) => {
+    const editarDisciplina = (event) => {
+        event.preventDefault();
         try {
             fetch('http://localhost:5000/disciplina',{
                 method:'PUT', 
@@ -86,9 +103,10 @@ const Disciplinas = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
-                body: JSON.stringify({"id": id, "nome": novoNome}
-            )}).then(res => res.json())
+                body: JSON.stringify({"id": newDisciplinaId, "nome": newDisciplina})
+            }).then(res => res.json())
             .then((result) => {
+                    setVisibleRegister(true);
                     getDisciplinas();
             },(error) => {
                 console.error(error)
@@ -98,70 +116,50 @@ const Disciplinas = () => {
         }
     }
 
-    const setSelected = (e) => {
-        let id = parseInt(e.target.id);
-        let selected = disciplinas.filter(function(disciplina) {
-            return disciplina.id === id;
-        });
-        console.log(selected);
-        setNewDisciplina(selected[0].nome);
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <span className="text">{feedback}</span>
+             </div>
+        );
     }
 
     useEffect(() => {
         getDisciplinas();
     }, []);
 
-    $(function () {
-        $("td.nome").dblclick(function () {
-            let conteudoOriginal = $(this).text();
-            if(conteudoOriginal) {
-                let divOriginal = $(this);
-                let id = $(this)[0].id;
-            
-                $(this).addClass("celulaEmEdicao");
-                $(this).html(`<input type='text' value="${conteudoOriginal}" />`);
-                $(this).children().first().focus();
-
-                $(this).children().first().keypress(function (e) {
-                    if (e.which === 13) {
-                        var novoConteudo = $(this).val();
-                        $(this).parent().text(novoConteudo);
-                        $(this).parent().removeClass("celulaEmEdicao");
-                        editarDisciplina(parseInt(id), novoConteudo);
-                    }
-                });
-
-                $(this).children().first().blur(function(){
-                    $(this).parent().text(conteudoOriginal);
-                    $(this).parent().removeClass("celulaEmEdicao");
-                });
-            }
-        });
-    });
-
     return (
         <>
             <Navegacao />
+            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
             <section className='content'>
                 <div id="cadastro">
                     <form>
                         <h1>Registro de Disciplinas</h1>
 
-                        <p>
+                        <div>
                             <label htmlFor="disciplina">Disciplina</label>
-                            <input value={newDisciplina} onChange={(e)=>{setNewDisciplina(e.target.value)}} name="disciplina" type="text" placeholder="Digite a nova disciplina" />
-                        </p>
+                            <input value={newDisciplina} onChange={(e)=>{ setNewDisciplina(e.target.value) }} name="disciplina" type="text" placeholder="Digite a nova disciplina" />
+                        </div>
                         { visibleRegister ?
-                            <p  >
-                                <input onClick={enviarDisciplina} value="Salvar" />
-                            </p> :
                             <div>
-                                <p  >
-                                    <input onClick={editarDisciplina(newDisciplina)} value="Alterar" />
-                                </p>
-                                <p  >
-                                    <input onClick={() => { setVisibleRegister(true) }} value="Cancelar" />
-                                </p>
+                                <button className="button" onClick={ enviarDisciplina } disabled={!newDisciplina} >Salvar</button>
+                            </div> :
+                            <div>
+                                <div>
+                                    <button className="button" onClick={(e)=>{ editarDisciplina(e) }} disabled={!newDisciplina}>Alterar</button>
+                                </div>
+                                <div>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                </div>
                             </div>
                         }
 
@@ -183,7 +181,16 @@ const Disciplinas = () => {
                                             <td className='nome' id={disciplina.id}>{disciplina.nome}</td>
                                             <td key={disciplina.id}>
                                                 <a href="#" onClick={apagarDisciplina} id={disciplina.id}><img alt='iconTrash' src='../remover.png' id={disciplina.id} /></a>
-                                                <a href="#" onClick={(e)=>{setSelected(e); setVisibleRegister(false);}} id={disciplina.id}><img alt='iconTrash' src='../editar.png' id={disciplina.id} /></a>
+                                                <a href="#" onClick={(e)=>{
+                                                    e.preventDefault();
+                                                    let id = parseInt(e.target.id);
+                                                    let selected = disciplinas.filter(function(disciplina) {
+                                                        return disciplina.id === id;
+                                                    });
+                                                    setNewDisciplina(selected[0].nome);
+                                                    setNewDisciplinaId(selected[0].id);
+                                                    setVisibleRegister(false);}} 
+                                                    id={disciplina.id}><img alt='iconTrash' src='../editar.png' id={disciplina.id} /></a>
                                             </td>
                                         </tr>
                                         )
@@ -191,8 +198,7 @@ const Disciplinas = () => {
                                     </tbody>
                                 </Table>
                             </section>
-                        :   <>
-                            </> 
+                        :   null
                         }
 
                         <p className="link">

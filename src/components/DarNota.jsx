@@ -35,39 +35,39 @@ const DarNota = () => {
                     <form method="post" action="">
                         <h1>Vincular Turma e Disciplina</h1>
 
-                        <p>
+                        <div>
                             <label for="select_cad">Disciplina</label>
                             <Select className='labelSelect' options={optionsDisciplina} />
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label for="select_cad">Turma</label>
                             <Select className='labelSelect' options={optionsTurma} />
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label for="select_cad">Aluno</label>
                             <Select className='labelSelect' options={optionsAluno} />
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label for="select_cad">Conteúdo</label>
                             <Select className='labelSelect' options={optionsConteudo} />
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label for="fase">Fase</label>
                             <input name="fase" type="text" placeholder="Digite a fase" />
-                        </p>
+                        </div>
 
-                        <p>
+                        <div>
                             <label for="nota">Nota</label>
                             <input name="nota" type="number" placeholder="Digite a nota" />
-                        </p>
+                        </div>
 
-                        <p>
-                            <input type="submit" value="Salvar" />
-                        </p>
+                        <div>
+                            <button className="button" type="submit">Salvar</button>
+                        </div>
 
                         <p class="link">
                             Ja deu a nota a todos todos?

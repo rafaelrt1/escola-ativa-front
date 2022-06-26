@@ -6,8 +6,8 @@ import Footer from './Footer';
 const VincularTurmaDisciplina = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
     const [optionsDisciplina, setOptionsDisciplina ]= useState([]);
-    const [selectedTurma, setSelectedTurma] = useState([]);
-    const [selectedDisciplina, setSelectedDisciplina ]= useState([]);
+    const [selectedTurma, setSelectedTurma] = useState();
+    const [selectedDisciplina, setSelectedDisciplina]= useState();
     const [visible, setVisible] = useState(false);
 
     const getTurmas = () => {
@@ -20,14 +20,14 @@ const VincularTurmaDisciplina = () => {
             .then((result) => {
                 let turmas = [];
                 result.forEach(function(turma) {
-                    turmas.push({ value: turma.id, label: turma.nome})
+                    turmas.push({ value: turma.id, label: turma.nome});
                 });
-                setOptionsTurma(turmas)
+                setOptionsTurma(turmas);
             },(error) => {
-                console.error(error)
+                console.error(error);
             });
         } catch(e) {
-            console.error(e)  
+            console.error(e);
         }
     }
 
@@ -69,8 +69,6 @@ const VincularTurmaDisciplina = () => {
 
     const vincular = (e) => {
         e.preventDefault();
-        console.log(selectedDisciplina)
-        console.log(selectedTurma)
         try {
             fetch('http://localhost:5000/turma-disciplina', {
                 method:'POST', 
@@ -146,7 +144,7 @@ const VincularTurmaDisciplina = () => {
                         </div>
 
                         <div>
-                            <input type="submit" value="Vincular" />
+                            <button disabled={!selectedDisciplina || !selectedTurma} className="button" type="submit">Vincular</button>
                         </div>
 
                         <p className="link">

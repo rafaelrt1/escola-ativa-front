@@ -8,19 +8,19 @@ const Cadastro = () => {
         <form method="post" action="">
           <h1>Cadastro</h1>
 
-          <p>
+          <div>
             <label for="nome_cad">Seu nome</label>
             <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="Seu usuário" />
-          </p>
+          </div>
 
-          <p>
+          <div>
             <label for="senha_cad">Sua senha</label>
             <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="ex. 1234" />
-          </p>
+          </div>
 
-          <p>
+          <div>
             <input type="submit" value="Cadastrar" />
-          </p>
+          </div>
 
           <p class="link">
             Já tem conta?
