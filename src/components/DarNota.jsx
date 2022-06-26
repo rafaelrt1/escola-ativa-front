@@ -55,6 +55,7 @@ const DarNota = () => {
                             <Select className='labelSelect' options={optionsConteudo} />
                         </div>
 
+<<<<<<< HEAD
                         <div>
                             <label for="fase">Fase</label>
                             <input name="fase" type="text" placeholder="Digite a fase" />
@@ -64,6 +65,17 @@ const DarNota = () => {
                             <label for="nota">Nota</label>
                             <input name="nota" type="number" placeholder="Digite a nota" />
                         </div>
+=======
+                    <p>
+                        <label for="fase">Fase</label>
+                        <input name="fase" type="text" required placeholder="Digite a fase" />
+                    </p>
+
+                    <p>
+                        <label for="nota">Nota</label>
+                        <input name="nota" type="number" required placeholder="Digite a nota" />
+                    </p>
+>>>>>>> 377efcdadbfe1058029f0f8c485d203bf327e6c0
 
                         <div>
                             <button className="button" type="submit">Salvar</button>
