@@ -1,13 +1,15 @@
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import $, { event } from 'jquery';
+import Footer from './Footer';
 
 const Turmas = () => {
     const [turmas, setTurmas] = useState();
-    const [newTurma, setNewTurma] = useState();
-    const [visible, setVisible] = useState(false);
-    const [selectedTurma, setSelectedTurma] = useState(false);
+    const [newTurma, setNewTurma] = useState('');
+    const [newTurmaId, setNewTurmaId] = useState();
+    const [visibleFeedback, setVisibleFeedback] = useState(false);
+    const [visibleRegister, setVisibleRegister] = useState(true);
+    const [feedback, setFeedback] = useState();
 
     const getTurmas = () => {
         try {
@@ -49,30 +51,47 @@ const Turmas = () => {
         }
     }
 
-    const apagarTurma = () => {
-        console.log(selectedTurma);
-        // try {
-        //     fetch('http://localhost:5000/turma', {
-        //         method:'DELETE', 
-        //         mode:"cors",
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json;charset=UTF-8'
-        //         },
-        //         body: JSON.stringify({"turma": id}
-        //     )}).then(res => res.json())
-        //     .then((result) => {
-        //         getTurmas();
-        //     },(error) => {
-        //         console.error(error)
-        //     });
-        // } catch(e) {
-        //     console.error(e)  
-        // }
+    const apagarTurma = (event) => {
+        event.preventDefault();
+        let turma = parseInt(event.target.id);
+        try {           
+            fetch('http://localhost:5000/turma', {
+                method:'DELETE', 
+                mode:"cors",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({"turma": turma}
+            )}).then(res => res.json())
+            .then((result) => {
+                if(result.error) {
+                    setFeedback('Esta turma não pode ser excluída porque existem registros relacionados a ela');
+                    setVisibleFeedback(true);
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
+                else if (result.success) {
+                    setFeedback('Turma excluída');
+                    setVisibleFeedback(true);
+                    getTurmas();
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
+            },(error) => {
+                console.error(error)
+            });
+        
+        } catch(e) {
+            console.error(e)  
+        }
     }
 
-    const editarTurma = (id, novoNome) => {
+    const editarTurma = (event) => {
         try {
+            event.preventDefault();
             fetch('http://localhost:5000/turma',{
                 method:'PUT', 
                 mode:"cors",
@@ -80,10 +99,11 @@ const Turmas = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
-                body: JSON.stringify({"turma": id, "novoNomeTurma":novoNome}
+                body: JSON.stringify({"turma": newTurmaId, "novoNomeTurma": newTurma}
             )}).then(res => res.json())
             .then((result) => {
                     getTurmas();
+                    setVisibleRegister(true);
             },(error) => {
                 console.error(error)
             });
@@ -95,34 +115,6 @@ const Turmas = () => {
     useEffect(() => {
         getTurmas();
     }, []);
-    
-    $(function () {
-        $("td.nome").dblclick(function () {
-            let conteudoOriginal = $(this).text();
-            if(conteudoOriginal) {
-                let divOriginal = $(this);
-                let id = $(this)[0].id;
-            
-                $(this).addClass("celulaEmEdicao");
-                $(this).html(`<input type='text' value="${conteudoOriginal}" />`);
-                $(this).children().first().focus();
-
-                $(this).children().first().keypress(function (e) {
-                    if (e.which === 13) {
-                        var novoConteudo = $(this).val();
-                        $(this).parent().text(novoConteudo);
-                        $(this).parent().removeClass("celulaEmEdicao");
-                        editarTurma(parseInt(id), novoConteudo);
-                    }
-                });
-
-                $(this).children().first().blur(function(){
-                    $(this).parent().text(conteudoOriginal);
-                    $(this).parent().removeClass("celulaEmEdicao");
-                });
-            }
-        });
-    });
 
     const Parent = ({ children }) => {
         return (
@@ -135,36 +127,37 @@ const Turmas = () => {
     const Child = () => {
         return (
             <div className="feedback">
-                 <p className="text">Esta ação também irá remover tudo que é vinculado a esta turma. Deseja realmente prosseguir?</p>
-                 <div className="buttons">
-                     <button className="button" onClick={() => {apagarTurma()}}>Sim</button>
-                     <button className="button" onClick={() => {setVisible(false)}}>Não</button>
-                 </div>
+                 <span className="text">{feedback}</span>
              </div>
         );
-    }
-
-    const handleClick = (e) => {
-        setSelectedTurma(parseInt(e.target.id));
-        setVisible(true);
     }
 
     return (
         <>
             <Navegacao />
-            <Parent>{visible ? <Child /> : null}</Parent>
+            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
             <section className='content'>
                 <div id="cadastro">
-                    <form onSubmit={enviarTurma}>
+                    <form>
                         <h1>Registro de Turmas</h1>
 
-                        <p>
+                        <div>
                             <label htmlFor="turma">Turma</label>
-                            <input onChange={(e)=>{setNewTurma(e.target.value)}} name="turma" type="text" placeholder="Digite a nova turma" required/>
-                        </p>
-                        <p>
-                            <input type="submit" value="Salvar" />
-                        </p>
+                            <input value={newTurma} onChange={(e)=>{setNewTurma(e.target.value)}} name="turma" type="text" placeholder="Digite a nova turma" />
+                        </div>
+                        { visibleRegister ?
+                            <div>
+                                <button className="button" onClick={ enviarTurma } disabled={!newTurma}>Salvar</button>
+                            </div> :
+                            <div>
+                                <div>
+                                    <button className="button" onClick={(e)=>{ editarTurma(e) }} disabled={!newTurma}>Alterar</button>
+                                </div>
+                                <div>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                </div>
+                            </div>
+                        }
 
                         { (turmas && turmas.length > 0) ?
                             <section>
@@ -183,7 +176,17 @@ const Turmas = () => {
                                             <td>{turma.id}</td>
                                             <td className='nome' id={turma.id}>{turma.nome}</td>
                                             <td key={turma.id}>
-                                                <a href="#" onClick={(e) => handleClick(e)} id={turma.id}><img src='../remover.png' id={turma.id} /></a>
+                                                <a href="#" onClick={(e) => apagarTurma(e) } id={turma.id}><img src='../remover.png' id={turma.id} /></a>
+                                                <a href="#" onClick={(e)=>{
+                                                    e.preventDefault();
+                                                    let id = parseInt(e.target.id);
+                                                    let selected = turmas.filter(function(turma) {
+                                                        return turma.id === id;
+                                                    });
+                                                    setNewTurma(selected[0].nome);
+                                                    setNewTurmaId(selected[0].id);
+                                                    setVisibleRegister(false);}} 
+                                                    id={turma.id}><img src='../editar.png' id={turma.id} /></a>
                                             </td>
                                         </tr>
                                         )
@@ -191,8 +194,7 @@ const Turmas = () => {
                                     </tbody>
                                 </Table>
                             </section>
-                        :   <>
-                            </> 
+                        :   null
                         }
 
                         <p className="link">
@@ -202,6 +204,7 @@ const Turmas = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

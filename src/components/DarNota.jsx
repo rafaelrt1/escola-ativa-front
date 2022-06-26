@@ -1,5 +1,6 @@
 import Navegacao from './Navegacao'
 import Select from 'react-select'
+import Footer from './Footer'
 
 const optionsTurma = [
     { value: 'Turma1', label: 'Turma 1' },
@@ -28,32 +29,43 @@ const optionsConteudo = [
 const DarNota = () => {
     return (
         <>
-        <Navegacao/>
-        <section className='content'>
-            <div id="cadastro">
-                <form method="post" action="">
-                    <h1>Vincular Turma e Disciplina</h1>
+            <Navegacao/>
+            <section className='content'>
+                <div id="cadastro">
+                    <form method="post" action="">
+                        <h1>Vincular Turma e Disciplina</h1>
 
-                    <p>
-                        <label for="select_cad">Disciplina</label>
-                        <Select className='labelSelect' options={optionsDisciplina} />
-                    </p>
+                        <div>
+                            <label for="select_cad">Disciplina</label>
+                            <Select className='labelSelect' options={optionsDisciplina} />
+                        </div>
 
-                    <p>
-                        <label for="select_cad">Turma</label>
-                        <Select className='labelSelect' options={optionsTurma} />
-                    </p>
+                        <div>
+                            <label for="select_cad">Turma</label>
+                            <Select className='labelSelect' options={optionsTurma} />
+                        </div>
 
-                    <p>
-                        <label for="select_cad">Aluno</label>
-                        <Select className='labelSelect' options={optionsAluno} />
-                    </p>
+                        <div>
+                            <label for="select_cad">Aluno</label>
+                            <Select className='labelSelect' options={optionsAluno} />
+                        </div>
 
-                    <p>
-                        <label for="select_cad">Conteúdo</label>
-                        <Select className='labelSelect' options={optionsConteudo} />
-                    </p>
+                        <div>
+                            <label for="select_cad">Conteúdo</label>
+                            <Select className='labelSelect' options={optionsConteudo} />
+                        </div>
 
+<<<<<<< HEAD
+                        <div>
+                            <label for="fase">Fase</label>
+                            <input name="fase" type="text" placeholder="Digite a fase" />
+                        </div>
+
+                        <div>
+                            <label for="nota">Nota</label>
+                            <input name="nota" type="number" placeholder="Digite a nota" />
+                        </div>
+=======
                     <p>
                         <label for="fase">Fase</label>
                         <input name="fase" type="text" required placeholder="Digite a fase" />
@@ -63,18 +75,20 @@ const DarNota = () => {
                         <label for="nota">Nota</label>
                         <input name="nota" type="number" required placeholder="Digite a nota" />
                     </p>
+>>>>>>> 377efcdadbfe1058029f0f8c485d203bf327e6c0
 
-                    <p>
-                        <input type="submit" value="Salvar" />
-                    </p>
+                        <div>
+                            <button className="button" type="submit">Salvar</button>
+                        </div>
 
-                    <p class="link">
-                        Ja deu a nota a todos todos?
-                        <a href="http://localhost:3000/Tabela">Tabela</a>
-                    </p>
-                </form>
-            </div>
-        </section>
+                        <p class="link">
+                            Ja deu a nota a todos todos?
+                            <a href="http://localhost:3000/Tabela">Tabela</a>
+                        </p>
+                    </form>
+                </div>
+            </section>
+            <Footer></Footer>
         </>
     )
 }

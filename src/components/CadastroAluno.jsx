@@ -2,13 +2,20 @@ import Select from 'react-select'
 import Navegacao from './Navegacao'
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react';
-import $ from 'jquery';
+import Footer from './Footer';
 
 const CadastroAluno = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);
     const [alunos, setAlunos] = useState();
-    const [newAluno, setNewAluno] = useState();
-    const [selectedTurma, setSelectedTurma] = useState([]);
+    const [newAluno, setNewAluno] = useState('');
+    const [newAlunoId, setNewAlunoId] = useState();
+    const [selectedTurma, setSelectedTurma] = useState('');
+    const [selectedTurmaNome, setSelectedTurmaNome] = useState('');
+    const [visibleRegister, setVisibleRegister] = useState(true);
+
+    console.log(selectedTurmaNome)
+    console.log(selectedTurma)
+    console.log(newAluno)
 
     const getTurmas = () => {
         try {
@@ -23,7 +30,6 @@ const CadastroAluno = () => {
                     turmas.push({ value: turma.id, label: turma.nome})
                 });
                 setOptionsTurma(turmas);
-                console.log(turmas);
             },(error) => {
                 console.error(error)
             });
@@ -50,8 +56,8 @@ const CadastroAluno = () => {
     }
 
     const createAluno = (e) => {
-        e.preventDefault();
         try {
+            e.preventDefault();
             fetch('http://localhost:5000/aluno', {
                 method:'POST',
                 mode:"cors",
@@ -72,14 +78,10 @@ const CadastroAluno = () => {
         }
     }
 
-    const handleChange = (e) => {
-        setSelectedTurma(e.value);      
-    }
-
     const apagarAluno = (event) => {
         let id = parseInt(event.target.id);
-        console.log(id)
         try {
+            event.preventDefault();
             fetch('http://localhost:5000/aluno', {
                 method:'DELETE', 
                 mode:"cors",
@@ -99,48 +101,28 @@ const CadastroAluno = () => {
         }
     }
 
-    const editarTurmaAluno = (id, novoNome) => {
-        console.log(id, novoNome)
-        // try {
-        //     fetch('http://localhost:5000/turma-aluno',{
-        //         method:'PUT', 
-        //         mode:"cors",
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json;charset=UTF-8'
-        //         },
-        //         body: JSON.stringify({"turma": id, "novoNomeTurma":novoNome}
-        //     )}).then(res => res.json())
-        //     .then((result) => {
-        //             getTurmas();
-        //     },(error) => {
-        //         console.error(error)
-        //     });
-        // } catch(e) {
-        //       console.error(e)  
-        // }
-    }
-
-    const editarAluno = (id, novoNome) => {
-        console.log(id, novoNome)
-        // try {
-        //     fetch('http://localhost:5000/turma',{
-        //         method:'PUT', 
-        //         mode:"cors",
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json;charset=UTF-8'
-        //         },
-        //         body: JSON.stringify({"turma": id, "novoNomeTurma":novoNome}
-        //     )}).then(res => res.json())
-        //     .then((result) => {
-        //             getTurmas();
-        //     },(error) => {
-        //         console.error(error)
-        //     });
-        // } catch(e) {
-        //       console.error(e)  
-        // }
+    const editarTurmaAluno = (event) => {
+        try {
+            event.preventDefault();
+            fetch('http://localhost:5000/turma-aluno',{
+                method:'PUT', 
+                mode:"cors",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({"turma": selectedTurma, "novoAluno": newAluno, "aluno": newAlunoId}
+            )}).then(res => res.json())
+            .then((result) => {
+                    getTurmas();
+                    getAlunos();
+                    setVisibleRegister(true);
+            },(error) => {
+                console.error(error)
+            });
+        } catch(e) {
+              console.error(e)  
+        }
     }
 
     useEffect(() => {
@@ -148,65 +130,41 @@ const CadastroAluno = () => {
         getAlunos();
     }, []);
 
-    $(function () {
-        $("td.nome, td.turma").dblclick(function () {
-            let conteudoOriginal = $(this).text();
-            if(conteudoOriginal) {
-                console.log($(this).parent())
-                let type = ($(this).parent().prevObject[0].classList[0]);
-                let divOriginal = $(this);
-                if (type === "turma") {
-                    let idAluno = $(this).parent().prevObject[0].attributes["data-aluno"].value;
-                    console.log(idAluno)
-                }
-                let id = $(this)[0].id;
-            
-                $(this).addClass("celulaEmEdicao");
-                $(this).html(`<input type='text' value="${conteudoOriginal}" />`);
-                $(this).children().first().focus();
-
-                $(this).children().first().keypress(function (e) {
-                    if (e.which === 13) {
-                        var novoConteudo = $(this).val();
-                        $(this).parent().text(novoConteudo);
-                        $(this).parent().removeClass("celulaEmEdicao");
-                        if (type === 'turma')
-                            editarTurmaAluno(parseInt(id), novoConteudo);
-                        else 
-                            editarAluno(parseInt(id), novoConteudo);
-                    }
-                });
-
-                $(this).children().first().blur(function(){
-                    $(this).parent().text(conteudoOriginal);
-                    $(this).parent().removeClass("celulaEmEdicao");
-                });
-            }
-        });
-    });
-
     return (
         <>
             <Navegacao />
             <section className='content'>
 
                 <div id="cadastro">
-                    <form onSubmit={createAluno}>
+                    <form>
                         <h1>Cadastro de Aluno</h1>
 
                         <div>
                             <label htmlFor="nome_cad">Nome Completo</label>
-                            <input id="nome_cad" onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required type="text" placeholder="Digite o nome completo" />
+                            <input id="nome_cad" value={newAluno} onChange={(e)=>{setNewAluno(e.target.value)}} name="nome_cad" required="required" type="text" placeholder="Digite o nome completo" />
                         </div>
 
                         <div>
                             <label htmlFor="select_cad">Turma</label>
-                            <Select className='labelSelect' options={optionsTurma} onChange={handleChange}/>
+                            <Select className='labelSelect' value={{label: selectedTurmaNome, value: selectedTurma}} options={optionsTurma} onChange={(e) => {
+                                setSelectedTurma(e.value);
+                                setSelectedTurmaNome(e.label);
+                            }}/>
                         </div>
 
-                        <div>
-                            <input type="submit" value="Cadastrar" />
-                        </div>
+                        { visibleRegister ?
+                            <div>
+                                <button className="button" onClick={ createAluno } disabled={!newAluno || !selectedTurma}>Cadastrar</button>
+                            </div> :
+                            <div>
+                                <div>
+                                    <button className="button" onClick={(e)=>{ editarTurmaAluno(e) }} disabled={!newAluno || !selectedTurma}>Alterar</button>
+                                </div>
+                                <div>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                </div>
+                            </div>
+                        }
 
                         { (alunos && alunos.length) ?
                             <section>
@@ -215,7 +173,8 @@ const CadastroAluno = () => {
                                         <tr>
                                             <th>Código</th>
                                             <th>Nome</th>
-                                            <th>Ações</th>
+                                            <th>Turma</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -227,6 +186,17 @@ const CadastroAluno = () => {
                                             <td className='turma' id={aluno.idTurma} data-aluno={aluno.idAluno}>{aluno.turma}</td>
                                             <td key={aluno.id}>
                                                 <a href="#" onClick={apagarAluno} id={aluno.idAluno}><img src='../remover.png' id={aluno.idAluno} /></a>
+                                                <a href="#" onClick={(e)=>{
+                                                    e.preventDefault();
+                                                    let id = parseInt(e.target.id);
+                                                    let selected = alunos.filter(function(aluno) {
+                                                        return aluno.idAluno === id;
+                                                    });
+                                                    setNewAluno(selected[0].nome);
+                                                    setNewAlunoId(selected[0].idAluno);
+                                                    setSelectedTurmaNome(selected[0].turma);
+                                                    setSelectedTurma(selected[0].idTurma)
+                                                    setVisibleRegister(false);}} id={aluno.idAluno}><img src='../editar.png' id={aluno.idAluno} /></a>
                                             </td>
                                         </tr>
                                         )
@@ -234,8 +204,7 @@ const CadastroAluno = () => {
                                     </tbody>
                                 </Table>
                             </section>
-                        :   <>
-                            </> 
+                        :   null
                         }
 
                         <p className="link">
@@ -245,6 +214,7 @@ const CadastroAluno = () => {
                     </form>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }
