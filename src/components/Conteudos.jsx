@@ -203,8 +203,9 @@ const Conteudos = () => {
                         }
 
                         <p class="link">
-                            Ja registrou todos? Va para os alunos agora!
-                            <a href="http://localhost:3000/Tabela">Alunos</a>
+                            Ja registrou todos? Adicione as notas!
+                            <br/>
+                            <a href="http://localhost:3000/DarNota">Registrar notas</a>
                         </p>
                     </form>
                 </div>

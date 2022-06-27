@@ -162,7 +162,7 @@ const DarNota = () => {
                 )
             }).then(res => res.json())
                 .then((result) => {
-                    console.log(result);
+                    // console.log(result);
                     getPontuacoes();
                 }, (error) => {
                     console.error(error)
@@ -186,7 +186,7 @@ const DarNota = () => {
 
     const createPontuacao = (e) => {
         e.preventDefault();
-        console.log(selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota)
+        // console.log(selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota)
         try {
             fetch('http://localhost:5000/pontuacao', {
                 method: 'POST',
@@ -221,7 +221,8 @@ const DarNota = () => {
     }
 
     const editPontuacao = (event) => {
-        // console.log('dados edit:', idPon, selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota);
+        console.log(idPon);
+        console.log('dados edit:', idPon, selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota);
         try {
             event.preventDefault();
             fetch('http://localhost:5000/pontuacao', {
