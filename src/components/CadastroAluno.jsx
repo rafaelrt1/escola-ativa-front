@@ -12,10 +12,8 @@ const CadastroAluno = () => {
     const [selectedTurma, setSelectedTurma] = useState('');
     const [selectedTurmaNome, setSelectedTurmaNome] = useState('');
     const [visibleRegister, setVisibleRegister] = useState(true);
-
-    console.log(selectedTurmaNome)
-    console.log(selectedTurma)
-    console.log(newAluno)
+    const [visibleFeedback, setVisibleFeedback] = useState(false);
+    const [feedback, setFeedback] = useState();
 
     const getTurmas = () => {
         try {
@@ -92,6 +90,21 @@ const CadastroAluno = () => {
                 body: JSON.stringify({"aluno": id}
             )}).then(res => res.json())
             .then((result) => {
+                if(result.error) {
+                    setFeedback('Esta aluno não pode ser excluída porque existem registros relacionados a ela');
+                    setVisibleFeedback(true);
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
+                else {
+                    setFeedback('Aluno excluído');
+                    setVisibleFeedback(true);
+                    getTurmas();
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
                 getAlunos();
             },(error) => {
                 console.error(error)
@@ -125,6 +138,22 @@ const CadastroAluno = () => {
         }
     }
 
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <span className="text">{feedback}</span>
+             </div>
+        );
+    }
+
     useEffect(() => {
         getTurmas();
         getAlunos();
@@ -133,6 +162,7 @@ const CadastroAluno = () => {
     return (
         <>
             <Navegacao />
+            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
             <section className='content'>
 
                 <div id="cadastro">
