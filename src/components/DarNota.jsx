@@ -25,7 +25,7 @@ const DarNota = () => {
 
     const [nota, setNota] = useState();
     const [fase, setFase] = useState('');
-    const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
+    // const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
     const [visibleRegister, setVisibleRegister] = useState(true);
 
     const getDisciplinas = () => {
@@ -207,10 +207,10 @@ const DarNota = () => {
             }
             ).then(res => res.json())
                 .then((data) => {
-                    setRespostaHTTP({
-                        message: data.message,
-                        status: data.status
-                    })
+                    // setRespostaHTTP({
+                    //     message: data.message,
+                    //     status: data.status
+                    // })
                     limparCampos();
                 }, (error) => {
                     console.error(error)
@@ -425,7 +425,7 @@ const DarNota = () => {
                
                
                 </section >
-                
+                <Footer></Footer>
         </>
     )
 
