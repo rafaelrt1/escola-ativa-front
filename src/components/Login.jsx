@@ -30,7 +30,7 @@ const Login = () => {
 
     return (
         <>
-            <section className='content'>
+            <section className='content mt-5'>
                 <div id="login">
                     <form onSubmit={tryLogin} method="" action="http://localhost:3000/Disciplinas">
                         <h1>Login</h1>
