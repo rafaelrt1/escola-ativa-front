@@ -70,7 +70,7 @@ const Conteudos = () => {
             )}).then(res => res.json())
             .then((result) => {
                 if(result.error) {
-                    setFeedback('Esta conteúdo não pode ser excluída porque existem registros relacionados a ela');
+                    setFeedback('Este conteúdo não pode ser excluído porque existem registros relacionados a ele');
                     setVisibleFeedback(true);
                     setTimeout(function() {
                         setVisibleFeedback(false);
