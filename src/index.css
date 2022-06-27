@@ -20,6 +20,7 @@ a.links{
   position: relative;
 }
 
+
 h1{
   font-size: 48px;
   color: #066a75;
@@ -134,7 +135,7 @@ input:not([type="password"]){
 }
 
 /*estilo do botão submit no hover */
-input[type="submit"]:hover{
+input[type="submit"]:hover, .button:hover{
   background: #4ab3c6;
 }
 
@@ -174,6 +175,23 @@ input[type="submit"]:hover{
 
 #cadastro,#login{
   position: absolute;
+  top: 0px;
+  width: 88%;   
+  padding: 18px 6% 60px 6%;
+  margin: 0 0 35px 0;
+  background: #f7f7f7;
+  border: 1px solid rgba(147, 184, 189,0.8);
+  border-radius: 5px;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+#cadastroNotas{
+  position: relative;
   top: 0px;
   width: 88%;   
   padding: 18px 6% 60px 6%;
