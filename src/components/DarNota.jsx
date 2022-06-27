@@ -2,6 +2,7 @@ import Navegacao from './Navegacao'
 import Select from 'react-select'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
+import Footer from './Footer'
 
 const DarNota = () => {
     const [optionsTurma, setOptionsTurma] = useState([]);

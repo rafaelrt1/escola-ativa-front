@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 const Navegacao = () => {
     return (
         <>
-
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
                     <Navbar.Brand href="#">
@@ -40,7 +39,6 @@ const Navegacao = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
             <br />
         </>
     )

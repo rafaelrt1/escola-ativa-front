@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import Select from 'react-select'
+import Footer from './Footer';
 import Navegacao from './Navegacao'
 
 const Tabela = () => {
@@ -164,17 +165,15 @@ const Tabela = () => {
                     <h1>Pontuação</h1>
                 </section>
                 <section >
-                    <p>
+                    <div>
                         <label for="select_cad">Disciplina</label>
                         <Select className='labelSelect' options={optionsDisciplina} onChange={handleChange.bind("disciplina", "disciplina")} />
-                    </p>
+                    </div>
 
-                    <p>
+                    <div>
                         <label for="select_cad">Turma</label>
                         <Select isDisabled={!selectedDisciplina} className='labelSelect' options={optionsTurma} onChange={handleChange.bind("turma", "turma")} />
-                    </p>
-
-
+                    </div>
                 </section>
                 {(dadosTabela?.length) ?
                     <section>
@@ -253,8 +252,8 @@ const Tabela = () => {
                             <></>
                      
                      }
-               
             </Container>
+            <Footer></Footer>
         </>
     )
 }
