@@ -18,8 +18,11 @@ a.links{
   min-height: 560px;    
   margin: 0px auto;
   position: relative;   
-  margin-top: 5%;
+  margin-top: 5px;
+  display: block;
 }
+
+
 
 h1{
   font-size: 48px;
@@ -88,7 +91,7 @@ input:not([type="checkbox"]){
 }
  
 /*estilo do botão submit */
-input[type="submit"]{
+input[type="submit"], .button{
   width: 100%!important;
   cursor: pointer;  
   background: rgb(61, 157, 179);
@@ -111,7 +114,7 @@ input[type="submit"]{
 }
 
 /*estilo do botão submit no hover */
-input[type="submit"]:hover{
+input[type="submit"]:hover, .button:hover{
   background: #4ab3c6;
 }
 
@@ -151,6 +154,23 @@ input[type="submit"]:hover{
 
 #cadastro,#login{
   position: absolute;
+  top: 0px;
+  width: 88%;   
+  padding: 18px 6% 60px 6%;
+  margin: 0 0 35px 0;
+  background: #f7f7f7;
+  border: 1px solid rgba(147, 184, 189,0.8);
+  border-radius: 5px;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+#cadastroNotas{
+  position: relative;
   top: 0px;
   width: 88%;   
   padding: 18px 6% 60px 6%;

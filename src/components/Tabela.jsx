@@ -171,12 +171,12 @@ const Tabela = () => {
 
                     <p>
                         <label for="select_cad">Turma</label>
-                        <Select className='labelSelect' options={optionsTurma} onChange={handleChange.bind("turma", "turma")} />
+                        <Select isDisabled={!selectedDisciplina} className='labelSelect' options={optionsTurma} onChange={handleChange.bind("turma", "turma")} />
                     </p>
 
 
                 </section>
-                {(dadosTabela && dadosTabela.length) ?
+                {(dadosTabela?.length) ?
                     <section>
                         <Table striped bordered hover>
                             <thead>
@@ -225,8 +225,8 @@ const Tabela = () => {
 
                 
                     
-                    {(notasFinais && notasFinais.length) ?
-                       <section className='mt-5'>
+                    {(notasFinais?.length) ?
+                       <section className='mt-5 mb-5'>
                         <h3>Notas finais</h3>
                         <Table striped bordered hover>
                             <thead>
