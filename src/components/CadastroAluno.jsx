@@ -13,9 +13,9 @@ const CadastroAluno = () => {
     const [selectedTurmaNome, setSelectedTurmaNome] = useState('');
     const [visibleRegister, setVisibleRegister] = useState(true);
 
-    console.log(selectedTurmaNome)
-    console.log(selectedTurma)
-    console.log(newAluno)
+    // console.log(selectedTurmaNome)
+    // console.log(selectedTurma)
+    // console.log(newAluno)
 
     const getTurmas = () => {
         try {

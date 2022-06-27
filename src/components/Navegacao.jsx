@@ -30,7 +30,7 @@ const Navegacao = () => {
                                 <NavDropdown.Item href="http://localhost:3000/CadastroAluno">Aluno</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="http://localhost:3000/VincularTurmaDisciplina">Vincular Turma a Disciplina</Nav.Link>
-                            <Nav.Link href="http://localhost:3000/DarNota">Dar Nota</Nav.Link>
+                            <Nav.Link href="http://localhost:3000/DarNota">Registrar Nota</Nav.Link>
                             <Nav.Link href="http://localhost:3000/Tabela">Tabela Pontuação</Nav.Link>
                         </Nav>
                         <Nav style={{ marginLeft: "10%" }} >

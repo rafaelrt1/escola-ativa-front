@@ -25,7 +25,7 @@ const DarNota = () => {
 
     const [nota, setNota] = useState();
     const [fase, setFase] = useState('');
-    const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
+    // const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
     const [visibleRegister, setVisibleRegister] = useState(true);
 
     const getDisciplinas = () => {
@@ -162,7 +162,7 @@ const DarNota = () => {
                 )
             }).then(res => res.json())
                 .then((result) => {
-                    console.log(result);
+                    // console.log(result);
                     getPontuacoes();
                 }, (error) => {
                     console.error(error)
@@ -186,7 +186,7 @@ const DarNota = () => {
 
     const createPontuacao = (e) => {
         e.preventDefault();
-        console.log(selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota)
+        // console.log(selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota)
         try {
             fetch('http://localhost:5000/pontuacao', {
                 method: 'POST',
@@ -207,10 +207,10 @@ const DarNota = () => {
             }
             ).then(res => res.json())
                 .then((data) => {
-                    setRespostaHTTP({
-                        message: data.message,
-                        status: data.status
-                    })
+                    // setRespostaHTTP({
+                    //     message: data.message,
+                    //     status: data.status
+                    // })
                     limparCampos();
                 }, (error) => {
                     console.error(error)
@@ -221,7 +221,8 @@ const DarNota = () => {
     }
 
     const editPontuacao = (event) => {
-        // console.log('dados edit:', idPon, selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota);
+        console.log(idPon);
+        console.log('dados edit:', idPon, selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota);
         try {
             event.preventDefault();
             fetch('http://localhost:5000/pontuacao', {
@@ -424,7 +425,7 @@ const DarNota = () => {
                
                
                 </section >
-                
+                <Footer></Footer>
         </>
     )
 
