@@ -176,7 +176,7 @@ const Tabela = () => {
                     </div>
                 </section>
                 {(dadosTabela?.length) ?
-                    <section>
+                    <section className='mt-4'>
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
@@ -184,7 +184,7 @@ const Tabela = () => {
                                     <th>Conteúdo</th>
                                     <th>Fase</th>
                                     <th>Nota</th>
-                                    <th>Ações</th>
+                                    {/* <th>Ações</th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -196,11 +196,11 @@ const Tabela = () => {
                                             <td className='conteudo' id={dados.conteudo}>{dados.conteudo}</td>
                                             <td className='fase' id={dados.fase}>{dados.fase}</td>
                                             <td className='nota' id={dados.nota}>{dados.nota}</td>
-                                            <td key={dados.idPon}>
+                                            {/* <td key={dados.idPon}>
                                                 <a title='Apagar pontuação' href="#" onClick={() => apagarPontuacao(dados.idPon)} id={dados.idPon}><img src='../remover.png' id={dados.idPon} /></a>
 
-                                                {/* <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a> */}
-                                            </td>
+                                                {/* <a href="#" style={{ marginLeft: "5px" }}><img src='../editar.png' /></a> 
+                                            </td> */}
                                         </tr>
                                     )
                                 })}
@@ -240,7 +240,8 @@ const Tabela = () => {
                                     return (
                                         <tr key={key}>
                                             <th className='nome' id={dados.aluno}>{dados.aluno}</th>
-                                            <td className='nota' style={{ background:dados.notaFinal > 5 ? '#87f38e' : '#ffa79d' }} id={dados.notaFinal}>{dados.notaFinal}</td>
+                                            {/* <td className='nota' style={{ background:dados.notaFinal > 5 ? '#87f38e' : '#ffa79d' }} id={dados.notaFinal}>{dados.notaFinal}</td> */}
+                                            <td className='nota' style={{ color:dados.notaFinal > 5 ? 'green' : 'red' }} id={dados.notaFinal}>{dados.notaFinal}</td>
                                         </tr>
                                     )
                                 })}
