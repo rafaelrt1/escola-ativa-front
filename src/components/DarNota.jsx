@@ -13,7 +13,7 @@ const DarNota = () => {
     const [selectedTurma, setSelectedTurma] = useState([]);
     const [selectedDisciplina, setSelectedDisciplina] = useState([]);
     const [selectedConteudo, setSelectedConteudo] = useState([]);
-    const [selectedAluno, setSelectedAluno] = useState([]);
+    const [selectedAluno, setSelectedAluno] = useState();
 
     const [selectedTurmaNome, setSelectedTurmaNome] = useState();
     const [selectedDisciplinaNome, setSelectedDisciplinaNome] = useState();
@@ -29,6 +29,8 @@ const DarNota = () => {
     const [visibleRegister, setVisibleRegister] = useState(true);
     const [feedback, setFeedback] = useState();
     const [visibleFeedback, setVisibleFeedback] = useState(false);
+
+    console.log(selectedAluno, selectedDisciplina, selectedTurma, selectedConteudo, nota, fase)
 
     const getDisciplinas = () => {
         try {
@@ -85,8 +87,9 @@ const DarNota = () => {
                     .then((result) => {
                         let alunos = [];
                         result.forEach(function (aluno) {
-                            alunos.push({ value: aluno.id, label: aluno.nome })
+                            alunos.push({ value: aluno.idAluno, label: aluno.nome })
                         });
+                        console.log(alunos)
                         setOptionsAluno(alunos)
                     }, (error) => {
                         console.error(error)
@@ -175,15 +178,18 @@ const DarNota = () => {
     }
 
     useEffect(() => {
-        getAlunos();
         getConteudos();
         getPontuacoes();
-    });
+    },[]);
+
+    useEffect(() => {
+        getAlunos();
+    }, [selectedTurma]);
 
     useEffect(() => {
         getTurmas();
         getDisciplinas();
-    }, [selectedDisciplina, selectedTurma]);
+    }, [selectedDisciplina]);
 
     const createPontuacao = (e) => {
         e.preventDefault();
@@ -212,6 +218,7 @@ const DarNota = () => {
                     //     status: data.status
                     // })
                     limparCampos();
+                    getPontuacoes();
                 }, (error) => {
                     console.error(error)
                 });
@@ -245,21 +252,21 @@ const DarNota = () => {
                     getAlunos();
                     setVisibleRegister(true);
                     limparCampos();
-                    if(result.error) {
-                        setFeedback('Erro ao editar pontuação');
-                        setVisibleFeedback(true);
-                        setTimeout(function() {
-                            setVisibleFeedback(false);
-                        },2000);
-                    }
-                    else if (result.success) {
-                        setFeedback('Pontuação editada!');
-                        setVisibleFeedback(true);
-                        setTimeout(function() {
-                            setVisibleFeedback(false);
-                        },1500);
+                    // if(result.error) {
+                    //     setFeedback('Erro ao editar pontuação');
+                    //     setVisibleFeedback(true);
+                    //     setTimeout(function() {
+                    //         setVisibleFeedback(false);
+                    //     },2000);
+                    // }
+                    // else if (result.success) {
+                    //     setFeedback('Pontuação editada!');
+                    //     setVisibleFeedback(true);
+                    //     setTimeout(function() {
+                    //         setVisibleFeedback(false);
+                    //     },1500);
                     
-                    }
+                    // }
                 }, (error) => {
                     console.error(error)
                 });
@@ -305,7 +312,7 @@ const DarNota = () => {
     return (
         <>
             <Navegacao />
-            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
+            {/* <Parent>{visibleFeedback ? <Child /> : null}</Parent> */}
                 <section className='content mb-5' >
                 <span id='topo'></span>
                     <div id="cadastroNotas">
@@ -332,7 +339,7 @@ const DarNota = () => {
                                 <label for="select_cad">Aluno</label>
                                 <Select className='labelSelect' options={optionsAluno} 
                                 value={{ label: selectedAlunoNome, value: selectedAluno }} 
-                                onChange={(e) => {setSelectedAluno(e.value); setSelectedAlunoNome(e.label);
+                                onChange={(e) => { console.log(e,optionsAluno); setSelectedAluno(e.value); setSelectedAlunoNome(e.label);
                                 }} />
                             </p>
 

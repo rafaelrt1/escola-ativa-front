@@ -15,7 +15,7 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Disciplinas />} />
           <Route exact path="/Cadastro" element={<Cadastro />} />
           <Route exact path="/CadastroAluno" element={<CadastroAluno />} />
           <Route exact path="/Tabela" element={<Tabela />} />

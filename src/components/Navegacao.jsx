@@ -34,7 +34,7 @@ const Navegacao = () => {
                             <Nav.Link href="http://localhost:3000/Tabela">Tabela Pontuação</Nav.Link>
                         </Nav>
                         <Nav style={{ marginLeft: "10%" }} >
-                            <Nav.Link href="http://localhost:3000/">Login</Nav.Link>
+                            {/* <Nav.Link href="http://localhost:3000/">Login</Nav.Link> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
