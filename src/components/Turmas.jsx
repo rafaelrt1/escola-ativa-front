@@ -42,6 +42,8 @@ const Turmas = () => {
             )}).then(res => res.json())
             .then((result) => {
                     getTurmas();
+                    setNewTurma('');
+                    setNewTurmaId();
                 },(error) => {
                     console.error(error)
                 }
@@ -68,6 +70,8 @@ const Turmas = () => {
                 if(result.error) {
                     setFeedback('Esta turma não pode ser excluída porque existem registros relacionados a ela');
                     setVisibleFeedback(true);
+                    setNewTurma('');
+                    setNewTurmaId();
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -76,6 +80,8 @@ const Turmas = () => {
                     setFeedback('Turma excluída');
                     setVisibleFeedback(true);
                     getTurmas();
+                    setNewTurma('');
+                    setNewTurmaId();
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -104,6 +110,8 @@ const Turmas = () => {
             .then((result) => {
                     getTurmas();
                     setVisibleRegister(true);
+                    setNewTurma('');
+                    setNewTurmaId();
             },(error) => {
                 console.error(error)
             });
@@ -154,7 +162,7 @@ const Turmas = () => {
                                     <button className="button" onClick={(e)=>{ editarTurma(e) }} disabled={!newTurma}>Alterar</button>
                                 </div>
                                 <div>
-                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true); setNewTurma(''); setNewTurmaId(); }}>Cancelar</button>
                                 </div>
                             </div>
                         }

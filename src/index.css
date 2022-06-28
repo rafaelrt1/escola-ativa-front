@@ -135,8 +135,12 @@ input:not([type="password"]){
 }
 
 /*estilo do botão submit no hover */
-input[type="submit"]:hover, .button:hover{
+input[type="submit"]:hover, .button:hover:not(:disabled){
   background: #4ab3c6;
+}
+
+input[type="submit"]:hover, .button.red:hover{
+  background: rgb(255, 65, 61);
 }
 
 .link{

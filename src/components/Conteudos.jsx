@@ -46,6 +46,8 @@ const Conteudos = () => {
             )}).then(res => res.json())
             .then((result) => {
                     getConteudos();
+                    setNewConteudoId();
+                    setNewConteudo('');
                 },(error) => {
                     console.error(error)
                 }
@@ -72,6 +74,8 @@ const Conteudos = () => {
                 if(result.error) {
                     setFeedback('Este conteúdo não pode ser excluído porque existem registros relacionados a ele');
                     setVisibleFeedback(true);
+                    setNewConteudoId();
+                    setNewConteudo('');
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -79,6 +83,8 @@ const Conteudos = () => {
                 else if (result.success) {
                     setFeedback('Conteúdo excluído');
                     setVisibleFeedback(true);
+                    setNewConteudoId();
+                    setNewConteudo('');
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -108,6 +114,8 @@ const Conteudos = () => {
             .then((result) => {
                     setVisibleRegister(true);
                     getConteudos();
+                    setNewConteudoId();
+                    setNewConteudo('');
             },(error) => {
                 console.error(error)
             });
@@ -159,7 +167,7 @@ const Conteudos = () => {
                                     <button className="button" onClick={(e)=>{ editarConteudo(e) }} disabled={!newConteudo}>Alterar</button>
                                 </div>
                                 <div>
-                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true); setNewConteudoId(); setNewConteudo('') }}>Cancelar</button>
                                 </div>
                             </div>
                         }

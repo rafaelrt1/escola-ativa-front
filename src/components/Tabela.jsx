@@ -146,7 +146,6 @@ const Tabela = () => {
                 )
             }).then(res => res.json())
                 .then((result) => {
-                    console.log(result);
                     getPontuacao();
                 }, (error) => {
                     console.error(error)

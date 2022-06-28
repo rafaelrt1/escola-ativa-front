@@ -12,10 +12,8 @@ const CadastroAluno = () => {
     const [selectedTurma, setSelectedTurma] = useState('');
     const [selectedTurmaNome, setSelectedTurmaNome] = useState('');
     const [visibleRegister, setVisibleRegister] = useState(true);
-
-    // console.log(selectedTurmaNome)
-    // console.log(selectedTurma)
-    // console.log(newAluno)
+    const [visibleFeedback, setVisibleFeedback] = useState(false);
+    const [feedback, setFeedback] = useState();
 
     const getTurmas = () => {
         try {
@@ -70,6 +68,10 @@ const CadastroAluno = () => {
             ).then(res => res.json())
             .then((result) => {
                 getAlunos();
+                setNewAlunoId();
+                setNewAluno('');
+                setSelectedTurmaNome('');
+                setSelectedTurma('');
             },(error) => {
                 console.error(error)
             });
@@ -92,6 +94,29 @@ const CadastroAluno = () => {
                 body: JSON.stringify({"aluno": id}
             )}).then(res => res.json())
             .then((result) => {
+                if(result.error) {
+                    setFeedback('Esta aluno não pode ser excluída porque existem registros relacionados a ela');
+                    setVisibleFeedback(true);
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
+                else {
+                    setFeedback('Aluno excluído');
+                    setVisibleFeedback(true);
+                    getTurmas();
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
+                    setTimeout(function() {
+                        setVisibleFeedback(false);
+                    },1500);
+                }
                 getAlunos();
             },(error) => {
                 console.error(error)
@@ -117,12 +142,32 @@ const CadastroAluno = () => {
                     getTurmas();
                     getAlunos();
                     setVisibleRegister(true);
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
             },(error) => {
                 console.error(error)
             });
         } catch(e) {
               console.error(e)  
         }
+    }
+
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <span className="text">{feedback}</span>
+             </div>
+        );
     }
 
     useEffect(() => {
@@ -133,6 +178,7 @@ const CadastroAluno = () => {
     return (
         <>
             <Navegacao />
+            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
             <section className='content'>
 
                 <div id="cadastro">
@@ -161,7 +207,13 @@ const CadastroAluno = () => {
                                     <button className="button" onClick={(e)=>{ editarTurmaAluno(e) }} disabled={!newAluno || !selectedTurma}>Alterar</button>
                                 </div>
                                 <div>
-                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                    <button className="button red" onClick={() => { 
+                                        setVisibleRegister(true);
+                                        setNewAlunoId();
+                                        setNewAluno('');
+                                        setSelectedTurmaNome('');
+                                        setSelectedTurma(''); 
+                                    }}>Cancelar</button>
                                 </div>
                             </div>
                         }
