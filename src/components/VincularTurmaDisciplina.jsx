@@ -9,6 +9,7 @@ const VincularTurmaDisciplina = () => {
     const [selectedTurma, setSelectedTurma] = useState();
     const [selectedDisciplina, setSelectedDisciplina]= useState();
     const [visible, setVisible] = useState(false);
+    const [message, setMessage] = useState();
 
     const getTurmas = () => {
         try {
@@ -31,20 +32,17 @@ const VincularTurmaDisciplina = () => {
         }
     }
 
-    const showSuccessMessage = (result) => {
-        return (
-            <div>
-                {(result.status) ?
-                    setVisible(true)
-                :   
-                    <div> 
-                        <span>Concluído com sucesso</span>
-                        <img></img>
-                    </div>
-                }
-            </div>
-        )
-    }
+    // const showSuccessMessage = () => {
+    //     return (
+    //         <div>
+    //             {(result) ?
+    //                 setVisible(true)
+    //             :   
+    //                 null
+    //             }
+    //         </div>
+    //     )
+    // }
 
     const getDisciplinas = () => {
         try {
@@ -81,8 +79,14 @@ const VincularTurmaDisciplina = () => {
             }
             ).then(res => res.json())
             .then((result) => {
-                if(result) {
-                    showSuccessMessage(result);
+                if(result.success) {
+                    setMessage(result.success);
+                    setVisible(true);
+                    // showSuccessMessage(result);
+                    // setMessage(result);
+                } else {
+                    setMessage(result.error);
+                    setVisible(true);
                 }
             },(error) => {
                 console.error(error)
@@ -110,7 +114,7 @@ const VincularTurmaDisciplina = () => {
     const Child = () => {
         return (
             <div className="feedback">
-                 <p className="text">Turma e disciplina já vinculadas</p>
+                 <p className="text">{message}</p>
                  <div className="buttons">
                      <button className="button" onClick={() => {setVisible(false)}}>Entendi</button>
                  </div>

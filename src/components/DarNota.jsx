@@ -23,10 +23,12 @@ const DarNota = () => {
     const [pontuacoes, setPontuacoes] = useState([]);
     const [idPon, setIdPon] = useState();
 
-    const [nota, setNota] = useState();
+    const [nota, setNota] = useState('');
     const [fase, setFase] = useState('');
-    const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
+    // const [respostaHTTP, setRespostaHTTP] = useState({ message: '', status: '' });
     const [visibleRegister, setVisibleRegister] = useState(true);
+    const [feedback, setFeedback] = useState();
+    const [visibleFeedback, setVisibleFeedback] = useState(false);
 
     const getDisciplinas = () => {
         try {
@@ -162,7 +164,6 @@ const DarNota = () => {
                 )
             }).then(res => res.json())
                 .then((result) => {
-                    console.log(result);
                     getPontuacoes();
                 }, (error) => {
                     console.error(error)
@@ -186,7 +187,6 @@ const DarNota = () => {
 
     const createPontuacao = (e) => {
         e.preventDefault();
-        console.log(selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota)
         try {
             fetch('http://localhost:5000/pontuacao', {
                 method: 'POST',
@@ -207,10 +207,10 @@ const DarNota = () => {
             }
             ).then(res => res.json())
                 .then((data) => {
-                    setRespostaHTTP({
-                        message: data.message,
-                        status: data.status
-                    })
+                    // setRespostaHTTP({
+                    //     message: data.message,
+                    //     status: data.status
+                    // })
                     limparCampos();
                 }, (error) => {
                     console.error(error)
@@ -221,7 +221,6 @@ const DarNota = () => {
     }
 
     const editPontuacao = (event) => {
-        // console.log('dados edit:', idPon, selectedAluno, selectedTurma, selectedDisciplina, selectedConteudo, fase, nota);
         try {
             event.preventDefault();
             fetch('http://localhost:5000/pontuacao', {
@@ -246,6 +245,21 @@ const DarNota = () => {
                     getAlunos();
                     setVisibleRegister(true);
                     limparCampos();
+                    if(result.error) {
+                        setFeedback('Erro ao editar pontuação');
+                        setVisibleFeedback(true);
+                        setTimeout(function() {
+                            setVisibleFeedback(false);
+                        },2000);
+                    }
+                    else if (result.success) {
+                        setFeedback('Pontuação editada!');
+                        setVisibleFeedback(true);
+                        setTimeout(function() {
+                            setVisibleFeedback(false);
+                        },1500);
+                    
+                    }
                 }, (error) => {
                     console.error(error)
                 });
@@ -266,16 +280,32 @@ const DarNota = () => {
         setFase('');
         setNota('');
         setIdPon('');
-        // console.log(respostaHTTP.status)
     }
 
     const scrollTop = function() {
         window.scrollTo(0, 50);
     };
 
+    const Parent = ({ children }) => {
+        return (
+            <div className="feedback-message">
+                {children}
+            </div>
+        );
+    }
+    
+    const Child = () => {
+        return (
+            <div className="feedback">
+                 <span className="text">{feedback}</span>
+             </div>
+        );
+    }
+
     return (
         <>
             <Navegacao />
+            <Parent>{visibleFeedback ? <Child /> : null}</Parent>
                 <section className='content mb-5' >
                 <span id='topo'></span>
                     <div id="cadastroNotas">
@@ -424,7 +454,7 @@ const DarNota = () => {
                
                
                 </section >
-                
+                <Footer></Footer>
         </>
     )
 

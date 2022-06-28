@@ -23,12 +23,12 @@ const Disciplinas = () => {
             }
             ).then(res => res.json())
             .then((result) => {
-                setDisciplinas(result)
+                setDisciplinas(result);
             },(error) => {
-                console.error(error)
+                console.error(error);
             });
         } catch(e) {
-            console.error(e)  
+            console.error(e);
         }
     }
 
@@ -46,12 +46,14 @@ const Disciplinas = () => {
             )}).then(res => res.json())
             .then((result) => {
                     getDisciplinas();
+                    setNewDisciplina('');
+                    setNewDisciplinaId();
                 },(error) => {
-                    console.error(error)
+                    console.error(error);
                 }
             );
         } catch(e) {
-              console.error(e)  
+              console.error(e);
         }
     }
 
@@ -72,6 +74,8 @@ const Disciplinas = () => {
                 if(result.error) {
                     setFeedback('Esta disciplina não pode ser excluída porque existem registros relacionados a ela');
                     setVisibleFeedback(true);
+                    setNewDisciplina('');
+                    setNewDisciplinaId();
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -79,13 +83,15 @@ const Disciplinas = () => {
                 else if (result.success) {
                     setFeedback('Disciplina excluída');
                     setVisibleFeedback(true);
+                    setNewDisciplina('');
+                    setNewDisciplinaId();
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
                     getDisciplinas();
                 }
                 },(error) => {
-                    console.error(error)
+                    console.error(error);
                 }
             );
         } catch(e) {
@@ -108,6 +114,8 @@ const Disciplinas = () => {
             .then((result) => {
                     setVisibleRegister(true);
                     getDisciplinas();
+                    setNewDisciplina('');
+                    setNewDisciplinaId();
             },(error) => {
                 console.error(error)
             });
@@ -158,7 +166,7 @@ const Disciplinas = () => {
                                     <button className="button" onClick={(e)=>{ editarDisciplina(e) }} disabled={!newDisciplina}>Alterar</button>
                                 </div>
                                 <div>
-                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                    <button className="button red" onClick={() => { setVisibleRegister(true); setNewDisciplina(''); setNewDisciplinaId(); }}>Cancelar</button>
                                 </div>
                             </div>
                         }

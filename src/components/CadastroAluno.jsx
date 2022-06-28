@@ -68,6 +68,10 @@ const CadastroAluno = () => {
             ).then(res => res.json())
             .then((result) => {
                 getAlunos();
+                setNewAlunoId();
+                setNewAluno('');
+                setSelectedTurmaNome('');
+                setSelectedTurma('');
             },(error) => {
                 console.error(error)
             });
@@ -93,6 +97,10 @@ const CadastroAluno = () => {
                 if(result.error) {
                     setFeedback('Esta aluno não pode ser excluída porque existem registros relacionados a ela');
                     setVisibleFeedback(true);
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -101,6 +109,10 @@ const CadastroAluno = () => {
                     setFeedback('Aluno excluído');
                     setVisibleFeedback(true);
                     getTurmas();
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
                     setTimeout(function() {
                         setVisibleFeedback(false);
                     },1500);
@@ -130,6 +142,10 @@ const CadastroAluno = () => {
                     getTurmas();
                     getAlunos();
                     setVisibleRegister(true);
+                    setNewAlunoId();
+                    setNewAluno('');
+                    setSelectedTurmaNome('');
+                    setSelectedTurma('');
             },(error) => {
                 console.error(error)
             });
@@ -191,7 +207,13 @@ const CadastroAluno = () => {
                                     <button className="button" onClick={(e)=>{ editarTurmaAluno(e) }} disabled={!newAluno || !selectedTurma}>Alterar</button>
                                 </div>
                                 <div>
-                                    <button className="button red" onClick={() => { setVisibleRegister(true) }}>Cancelar</button>
+                                    <button className="button red" onClick={() => { 
+                                        setVisibleRegister(true);
+                                        setNewAlunoId();
+                                        setNewAluno('');
+                                        setSelectedTurmaNome('');
+                                        setSelectedTurma(''); 
+                                    }}>Cancelar</button>
                                 </div>
                             </div>
                         }

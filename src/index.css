@@ -16,7 +16,7 @@ a.links{
 .content{
   width: 500px;
   min-height: 560px;    
-  margin: 5% auto;
+  margin: 5px auto;
   position: relative;
 }
 
@@ -135,8 +135,12 @@ input:not([type="password"]){
 }
 
 /*estilo do botão submit no hover */
-input[type="submit"]:hover, .button:hover{
+input[type="submit"]:hover, .button:hover:not(:disabled){
   background: #4ab3c6;
+}
+
+input[type="submit"]:hover, .button.red:hover{
+  background: rgb(255, 65, 61);
 }
 
 .link{
